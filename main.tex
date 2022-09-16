@@ -19,7 +19,7 @@
 \usepackage{lineno}
 \usepackage[inline]{trackchanges} %for better track changes. finalnew option will compile document with changes incorporated.
 \usepackage{soul}
-\linenumbers
+%\linenumbers
 
 %CMZ
 \usepackage{natbib}
@@ -27,6 +27,8 @@
 \usepackage{graphicx}
 \newcommand{\degree}{$^{\circ}$}
 \newcommand{\texttilde}{$\sim$}
+\usepackage{tabularx}
+\renewcommand\tabularxcolumn[1]{m{#1}}% for vertical centering text in X column
 
 
 %%%%%%%
@@ -108,12 +110,12 @@
 % Example: \authors{A. B. Author\affil{1}\thanks{Current address, Antartica}, B. C. Author\affil{2,3}, and D. E.
 % Author\affil{3,4}\thanks{Also funded by Monsanto.}}
 
-\authors{Colin M. Zarzycki\affil{1}, Benjamin D. Ascher\affil{1}\thanks{now at Colorado State University}, and Alan M. Rhoades\affil{2}}
+\authors{Colin M. Zarzycki\affil{1}, Benjamin D. Ascher\affil{1}\thanks{now at Colorado State University}, Alan M. Rhoades\affil{2}, and Rachel R. McCrary\affil{3}}
 
 
 \affiliation{1}{Penn State}
 \affiliation{2}{LBNL}
-% \affiliation{3}{Third Affiliation}
+\affiliation{3}{NCAR}
 % \affiliation{4}{Fourth Affiliation}
 
 %% Corresponding Author:
@@ -142,9 +144,9 @@
 % \end{keypoints}
 
 \begin{keypoints}
-\item enter point 1 here
-\item enter point 2 here
-\item enter point 3 here
+\item 1
+\item 2
+\item 3
 \end{keypoints}
 
 %% ------------------------------------------------------------------------ %%
@@ -167,13 +169,21 @@
 %% ------------------------------------------------------------------------ %%
 
 %% \begin{abstract} starts the second page
+ 
+% CMZ, assuming 5 figures/tables, we have 3500 to work with!
+ 	
+% The formula for PU = number of words/500 + number of figures + number of tables. Articles exceeding a certain amount of PUs incur excess page fees.
+%
+%Word count includes abstract, acknowledgements, text (and in-text citations), figure captions, table captions, and appendices. Equations count as one word no matter the size. Equations are not copyedited.
+%
+%Word count excludes title, author list and affiliations, key words, key points, plain language summary, table text, open research section, references, and supporting information. Supporting information is not copyedited.
 
 \begin{abstract}
-[ enter your Abstract here ]
+SAMPLE ABSTRACT FOR WORD COUNT! The northeastern United States is vulnerable to many impacts from snowfall-producing winter cyclones that are amplified by the proximity of population centers to storm tracks. Historically, climatic snowfall assessments have centered around seasonal means even though local impacts typically occur at scales of hours to days. To detect snowstorms at the event level, an objective algorithm is defined based on the Regional Snowfall Index. The metric collocates storm snowfall with population to produce statistics of snowstorms with societal impacts. When applied to the Community Earth System Model Large Ensemble (LENS), broad declines in snowstorm frequency are projected by the later 21st century. These decreases are primarily due to a warmer atmosphere less conducive to snowfall as the predominant precipitation type. However, reductions are less significant for major events, since more hostile thermodynamic environments are partially offset by increased precipitation associated with cyclones that dynamically drive high-impact snowstorms.
 \end{abstract}
 
 \section*{Plain Language Summary}
-[ enter your Plain Language Summary here or delete this section]
+%PLS
 
 
 %% ------------------------------------------------------------------------ %%
@@ -242,41 +252,41 @@ XXXXXX
 
 To evaluate the suitability of historical products, we evaluate four products that seek to reproduce observed conditions, although each with a different form.
 
-First, L15
+%https://www.sciencedirect.com/science/article/pii/S0022169417301452
 
-Second, NLDAS-VIC4.0.5
+First, we apply the dataset described in \citet{livneh2015spatially} (L15). L15 is a 1/16\degree{} hydrometeorological dataset covering most of North America. Meteorological data consists of precipitation, temperature, and wind speed, with the former two variables being derived from station data and the latter from reanalysis. This data is then used to drive the Variable Infiltration Capacity (VIC, \citet{liang1994simple}) model to produce relevant outputs. Second, NLDAS-VIC4.0.5. In this dataset, the North American Land Data Assimilation System (NLDAS) is driven by offline atmospheric forcing derived from the North American Regional Reanalysis (NARR) interpolated hourly to the 1/8\degree{} NLDAS grid, with adjustments made based on observations such as from precipitation gauges. While there are four NLDAS-2 land surface models that produce hydrologic output variables, we choose to analyze VIC to be somewhat consistent with L15.
 
-Third, a full, global reanalysis JRA-55. Reanalyses are derived from running prognostic 3-D Earth system models while assimilating observational data as they are integrated. Therefore, they serve as a bridge between in-situ observational data and free-running climate models. More details re: reanalyses can be found in XXX.
-
-Finally, a nudged version of the DoE E3SM model is run at 1\degree{} spatial resolution. This simulation is analogous to the majority of climate models in CMIP6. To constrain the large-scale meteorology to that observed, the simulation is nudged to ERA5 reanalysis at 6-hourly timescales, with acts as a crude assimilation technique. This nudging is performed above the boundary layer, which offers the advantage of reproducing patterns of 500 hPa geopotential height and sea level pressure while allowing the model to simulate grid-scale processes relatively freely \citep{sun2019impact}. While E3SM is run on an unstructured cubed-sphere mesh, the simulation output is regridded to a 1\degree{}x1\degree{} regular latitude-longitude mesh using higher-order methods \citep{hill2004architecture}. 
+We also apply two forms of coupled global reanalyses. The first is a full, global reanalysis JRA-55. Reanalyses are derived from running prognostic 3-D Earth system models while assimilating observational data as they are integrated. Therefore, they serve as a bridge between in-situ observational data and free-running climate models. More details re: reanalyses can be found in XXX. Lastly, a nudged version of the DoE E3SM model is run at 1\degree{} spatial resolution. This simulation is analogous to the majority of climate models in CMIP6. To constrain the large-scale meteorology to that observed, the simulation is nudged to ERA5 reanalysis at 6-hourly timescales, with acts as a crude assimilation technique. This nudging is performed above the boundary layer, which offers the advantage of reproducing patterns of 500 hPa geopotential height and sea level pressure while allowing the model to simulate grid-scale processes relatively freely \citep{sun2019impact}. While E3SM is run on an unstructured cubed-sphere mesh, the simulation output is regridded to a 1\degree{}x1\degree{} regular latitude-longitude mesh using higher-order methods \citep{hill2004architecture}. 
 
 \subsection{Defining basin-scale events}
 
-Three variables are extracted over the SRB. These include total precipitation (liquid and frozen, summed), surface snow water equivalent (SWE), and surface water runoff (ROF). All data is standardized to daily average values by temporally-averaging any subdaily (e.g., hourly) data at each grid cell. The SRB is defined using a shapefile (MORE INFO). Grid cells that have at least 50\% of their area enclosed by the boundary of the SRB are kept, while those exterior to the SRB ($<$50\%) are set to missing values. Results using a simple latitude-longitude box encompassing the SRB demonstrated similar results (not shown). A basin-wide timeseries is then constructed by spatially averaging the three fields for each calendar day (00Z to 00Z) and smoothing the resulting time series using a simple moving average to reduce day-to-day noise in the derived variables. We choose a 5-day window based on synoptic timescales \citep{holton2004introduction}, although perturbations to this averaging period didn't materially change any of the findings here. Rain-on-snow days are defined algorithmically by flagging coincident times of negative dSWE and surface runoff that both exceed certain thresholds in the smoothed SRB timeseries. We test two methods of thresholding; one uses fixed thresholds across all datasets (FIXED) and the other defines dataset specific thresholds by those exceeding 95\% (RELATIVE) over the dataset. For fixed thresholds, we require an average dSWE of -1.4 mm/day and surface runoff rate of 1.4 mm/day. Note that while the majority of the events are associated with precipitation (e.g., rain-on-snow) we do not exclude a specific precipitation criterion, but rather, leverage surface runoff as a proxy for surface flooding. The processing was verified by comparing the Pearson correlation of basin-wide statistics across all products. All permutations resulted in acceptably high correlations (greater than XXX, Table SX), confirming that all datasets adequately represent the historical time series.
+Three variables are extracted over the SRB. These include total precipitation (liquid and frozen, summed), surface snow water equivalent (SWE), and surface water runoff (ROF). All data is standardized to daily average values by temporally-averaging any subdaily (e.g., hourly) data at each grid cell. The SRB is defined using a shapefile provided by the Susquehanna River Basin Commission (SRBC). Grid cells that have at least 50\% of their area enclosed by the boundary of the SRB are kept, while those exterior to the SRB ($<$50\%) are set to missing values. Results using a simple latitude-longitude box encompassing the SRB demonstrated similar results (not shown). A basin-wide timeseries is then constructed by spatially averaging the three fields for each calendar day (00Z to 00Z) and smoothing the resulting time series using a simple moving average to reduce day-to-day noise in the derived variables. We choose a 5-day window based on synoptic timescales \citep{holton2004introduction}, although perturbations to this averaging period didn't materially change any of the findings here.
+
+Rain-on-snow days are defined algorithmically by flagging coincident times of negative dSWE and surface runoff that both exceed certain thresholds in the smoothed SRB timeseries. We test two methods of thresholding; one uses fixed thresholds across all datasets (FIXED) and the other defines dataset specific thresholds by those exceeding 95\% (RELATIVE) over the dataset. For fixed thresholds, we require an average dSWE of -1.4 mm/day and surface runoff rate of 1.4 mm/day. Note that while the majority of the events are associated with precipitation (e.g., rain-on-snow) we do not exclude a specific precipitation criterion, but rather, leverage surface runoff as a proxy for surface flooding. The processing was verified by comparing the Pearson correlation of basin-wide statistics across all products. All permutations resulted in acceptably high correlations (greater than XXX, Table SX), confirming that all datasets adequately represent the historical time series.
 
 \section{Results}
 
 \subsection{Climatology}
 
-The mean climatologies for all four products are shown in Fig. \ref{fig:means}. The mean precipitation r
+The mean spatial climatologies for all four products are shown in Fig. \ref{fig:means}. The higher resolution nature of both the L15 and NLDAS products is evident from the added spatial structure in the mean fields. Mean precipitation is higher in both JRA and E3SM when compared to the L15 and NLDAS. This may be due to the inclusion of gauge data in the latter, although it has been shown that significant spread still exists in historical gridded data products even for precipitation \citep{gutmann2012comparison,livneh2014filling}.
 
-The higher resolution nature of both the NLDAS and L15 products is also evident from the spatial structure in the mean fields.
+Both surface runoff and SWE climatologies contain one product much `drier' than the others. For surface runoff, L15 produces mean surface runoff values that are less than half of the climatologies of each of the three products. Conversely, NLDAS produces much less SWE from a climatological perspective, well less than JRA and less than 20\% of the SWE produced by L15 or E3SM. This is unsurprising since it is well-known that simulated runoff from different hydrologic models can be extremely variable, with regional differences between products reaching an order of magnitude in some cases \citep{gudmundsson2012comparing,sood2015global,beck2017global}. Previous work has also shown that estimated SWE can vary greatly from dataset to dataset \citep{lundquist2015high}, particularly over the ephemeral snow area of the NEUS \citep{mccrary2017evaluation}.
 
-It is well-known that simulated runoff from different hydrologic models can be extremely variable, with regional differences between products reaching an order of magnitude in some cases \citep{gudmundsson2012comparing,sood2015global,beck2017global}. 
+Finally, dSWE climatology is also compared. dSWE is calculated as the SWE difference from the previous day, with all accumulation (or zero change) days ignored. Therefore, we are only considering the average climatology of snow loss days. Here, NLDAS also registers the lowest mean daily snowmelt, although this is likely in part due to the shallower mean snowpack. More interestingly, the largest climatological dSWE magnitude is found in JRA, even though the SWE in JRA sits between the less snowy NLDAS and the snowier L15 and E3SM. This implies that the snowpack is more variable in JRA and more prone to more rapid snow loss (from a dSWE per unit time perspective) events.
 
-While there is less product-to-product variability in precipitation and snow water equivalent (SWE), it has been found that significant spread still exists in climate data products even for precipitation.
+Turning to the flagged RoS events, Table \ref{table:means} shows the statistics for all four data products. Focusing on the FIXED thresholds, we find the number of events over the study period varies by an order of magnitude, from 6 events in L15 to 60 in E3SM. Interestingly, this large difference doesn't necessarily appear when considering the average (or maximum) event-level dSWE, ROF, or precipitaton. In fact, during RoS events, L15 has the largest precipitation and largest dSWE, although smallest surface runoff.
 
-Table \ref{table:means}. shows the 
+When using the RELATIVE thresholds, the number of events come into more agreement, with only a factor of two difference between the L15 and NLDAS events and those in JRA and E3SM. The number of events in L15 increases because the ROF threshold based on the 95th percentile is greatly reduced, from 1.4 to 0.62 mm/day. Conversely, the number of events classified in E3SM is decreased, due to both increases in the required ROF and dSWE thresholds based on the daily climatology of the product. However, even when attempting to account for the baseline climatological differences of the data products by thresholding on percentile rather than absolute magnitude, large differences still are evident in all metrics, likely due to the shape of the frequency distributions of the daily quantities over the SRB.
 
 
 \begin{figure}
 \begin{tabular}{c}
 \includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_PRECIP}.pdf} \\
 \includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_ROF}.pdf} \\
-\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_dSWE}.pdf} \\
-\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_SWE}.pdf}
+\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_SWE}.pdf} \\
+\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_dSWE}.pdf}
 \end{tabular}
-\caption{....}
+\caption{November to April mean climatologies of L15, NLDAS, JRA, and E3SM (left to right).. From top to bottom are precipitation (mm/day), surface runoff (mm/day), snow water equivalent (mm), and dSWE (mm/day). dSWE only includes data days with snow loss at a particular gridbox. Grid cells are masked such that data is only included if more than 50\% of a data products cell lies within the SRB bounds (black outline).}
 \label{fig:means}
 \end{figure}
 
@@ -284,58 +294,67 @@ Table \ref{table:means}. shows the
 \begin{table}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllllllllll}
-                & ROS\_t & dSWE\_t & Events & Duration & dSWE & dSWE\_max & ROF & ROF\_max & Precip & Precip\_max \\
+                & ROF\_t & dSWE\_t & Events & Duration & dSWE & dSWE\_max & ROF & ROF\_max & Precip & Precip\_max \\
+FIXED           &        &         &        &          &      &           &     &          &        &             \\
+L15             & 1.40   & 1.40    & 6      & 3.2      & 6.8  & 7.5       & 1.6 & 1.7      & 8.6    & 9.1         \\
+NLDAS           & 1.40   & 1.40    & 17     & 3.0      & 3.8  & 4.5       & 1.9 & 2.0      & 5.8    & 6.4         \\
+JRA             & 1.40   & 1.40    & 48     & 3.5      & 3.5  & 4.7       & 2.5 & 2.8      & 5.3    & 6.1         \\
+E3SM            & 1.40   & 1.40    & 60     & 4.6      & 5.2  & 6.8       & 2.2 & 2.6      & 5.8    & 7.1        \\
+                &        &         &        &          &      &           &     &          &        &             \\
 RELATIVE (95\%) &        &         &        &          &      &           &     &          &        &             \\
-E3SM            & 1.78   & 2.22    & 42     & 4.6      & 6.9  & 8.5       & 2.6 & 3.0      & 6.1    & 7.3         \\
-JRA             & 1.57   & 1.85    & 40     & 3.2      & 4.0  & 5.1       & 2.6 & 2.9      & 5.4    & 6.1         \\
 L15             & 0.62   & 1.49    & 20     & 6.0      & 4.8  & 6.1       & 0.9 & 1.1      & 5.4    & 6.8         \\
 NLDAS           & 1.42   & 0.79    & 21     & 2.9      & 3.2  & 3.8       & 1.9 & 2.0      & 6.1    & 6.7         \\
-                &        &         &        &          &      &           &     &          &        &             \\
-FIXED           &        &         &        &          &      &           &     &          &        &             \\
-E3SM            & 1.40   & 1.40    & 60     & 4.6      & 5.2  & 6.8       & 2.2 & 2.6      & 5.8    & 7.1         \\
-JRA             & 1.40   & 1.40    & 48     & 3.5      & 3.5  & 4.7       & 2.5 & 2.8      & 5.3    & 6.1         \\
-L15             & 1.40   & 1.40    & 6      & 3.2      & 6.8  & 7.5       & 1.6 & 1.7      & 8.6    & 9.1         \\
-NLDAS           & 1.40   & 1.40    & 17     & 3.0      & 3.8  & 4.5       & 1.9 & 2.0      & 5.8    & 6.4        
+JRA             & 1.57   & 1.85    & 40     & 3.2      & 4.0  & 5.1       & 2.6 & 2.9      & 5.4    & 6.1         \\
+E3SM            & 1.78   & 2.22    & 42     & 4.6      & 6.9  & 8.5       & 2.6 & 3.0      & 6.1    & 7.3          
 \end{tabular}
 }
-\caption{....}
+\caption{Statistics of flagged events over the SRB in each data product using FIXED thresholds (top) and RELATIVE thresholds (bottom). ROF$_t$ and dSWE$_t$ represent the daily runoff and snow loss thresholds for that line. Events represents the number of events flagged over the 1980-2005 period. Duration is the average number of consecutive days an event lasts for. dSWE, ROF, and Precip represent the average snow loss, runoff, and precipitation per event by calculating the mean values across an event then averaging those. The same variables with a subscript `max'  find compute the single-day maximum during a given event and then average the maxima.}
 \label{table:means}
 \end{table}
 
-The differences between the datasets can be more readily noted in Figure \ref{fig:histograms}. All panels show statistics using the `relative' method where the algorithm thresholds are re-calibrated for each dataset. Fig. Xa. shows total number of events flagged over the time period, while Figs. Xb.-d. show the binned probabilities of daily maximum event-level precipitation, runoff, and change in SWE, respectively. All values are basin averages. The maximum precipitation associated with events is relatively similar between the four data products, with E3SM tending to have slightly more extreme precipitation occurring over the basin during the events flagged in that dataset (in agreement with Fig. \ref{fig:means}). Larger differences are seen in runoff and dSWE. In runoff, both the E3SM and JRA datasets produce larger magnitudes of surface runoff (i.e., flooding) compared to the other two datasets. L15 produces events with the least surface runoff (averaging approximately one-third of that in E3SM and JRA), with NLDAS lying between all three. The PDF of dSWE paints an even more complex picture, with 
+The differences between the datasets can be more readily noted in Figure \ref{fig:histograms}. All panels show statistics using RELATIVE, although the same figures for FIXED are shown in the supplement. Fig. \ref{fig:histograms}a. shows total number of events flagged over the time period, while Figs. \ref{fig:histograms}b.-d. show the binned probabilities of daily maximum event-level precipitation, runoff, and change in SWE, respectively. All values are basin averages. The maximum precipitation associated with events is relatively similar between the four data products, with E3SM tending to have slightly more extreme precipitation occurring over the basin during the events flagged in that dataset (in agreement with Fig. \ref{fig:means}). Larger differences are seen in runoff and dSWE. In runoff, both the E3SM and JRA datasets produce larger magnitudes of surface runoff (i.e., flooding) compared to the other two datasets. L15 produces events with the least surface runoff (averaging approximately one-third of that in E3SM and JRA), with NLDAS lying between all three. The PDF of dSWE paints an even more complex picture, with 
 
 Taken above, in either a relative or fixed threshold configuration, the 3-D coupled products (E3SM and JRA) produce more rain-on-snow events than L15 and NLDAS. While daily precipitation in each product differs somewhat, it should be noted that these differences are relatively small and precipitation is not actually used to flag RoS events. Rather, in our algorithm, majority of the difference in RoS events flagged across the datasets arises from lower magnitudes of runoff (dSWE) in the L15 (NLDAS) dataset. It is worth noting that L15 and NLDAS produce fewer RoS events regardless of which thresholding is used, so not only is the distribution of relevant daily variables shifted relative to the other models, but that the skewness is impacted as well.
 
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.45\linewidth]{{figs/cropped/events}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/Max_precip}.pdf} \\
-\includegraphics[width=0.45\linewidth]{{figs/cropped/Max_runoff}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/Max_dSWE}.pdf}
+\includegraphics[width=0.442\linewidth]{{figs/cropped/events_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_95}.pdf} \\
+\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
 \end{tabular}
-\caption{....}
+\caption{Histogram statistics at the flagged event level in the four data products. Shown are results of the RELATIVE analysis. The number of events for each dataset over the relevant time period are shown in the top left. In the other three panels, frequency distributions of the maximum precipitation, maximum runoff, and maximum dSWE (mm/day) for each flagged event in each dataset are shown.}
 \label{fig:histograms}
 \end{figure}
 
 \subsection{Single-year evaluation}
 
-\begin{figure}
-\begin{tabular}{cc}
-\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf} \\
-\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
-\end{tabular}
-\caption{....}
-\label{fig:yr-timeseries-comp}
-\end{figure}
+%\begin{figure}
+%\begin{tabular}{cc}
+%\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf} \\
+%\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
+%\end{tabular}
+%\caption{Timeseries of daily precipitation (green), surface runoff (orange), and snow loss (pink) during WY95 for each of the four products. Vertical purple shading denotes periods flagged as a rain-on-snow event by the method discussed in methods. At the top of each timeseries is a colored bar series which denotes extreme values (greater than 75\%) of observed USGS streamflow at Harrisburg, with very dark hues representing 99\% values over the 1980-2005 period.}
+%\label{fig:yr-timeseries-comp}
+%\end{figure}
+%
+%\begin{figure}
+%\begin{tabular}{cc}
+%\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf} \\
+%\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
+%\end{tabular}
+%\caption{Bubble plots comparing precipitation (y-axis), SWE change (x-axis), and surface runoff (size of bubble) for each of the four datasets during WY95. For each bubble, the values used come from the same calendar day. Bubbles that are filled were flagged by the algorithm as a rain-on-snow event (purple shaded periods in Fig. \ref{yr-timeseries-comp}).}
+%\label{fig:bubble-comp}
+%\end{figure}
 
 \begin{figure}
-\begin{tabular}{cc}
-\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf} \\
-\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
-\end{tabular}
-\caption{....}
-\label{fig:bubble-comp}
+\begin{tabularx}{\textwidth}{XX}
+\includegraphics[width=1.0\linewidth]{{figs/cropped/L15_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf} \\ \includegraphics[width=1.0\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf} \\
+    \includegraphics[width=1.0\linewidth]{{figs/cropped/JRA_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf} \\\includegraphics[width=1.0\linewidth]{{figs/cropped/E3SM_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
+\end{tabularx}
+\caption{Bubble plots comparing precipitation (y-axis), SWE change (x-axis), and surface runoff (size of bubble) for each of the four datasets during WY95. For each bubble, the values used come from the same calendar day. Bubbles that are filled were flagged by the algorithm as a rain-on-snow event (purple shaded periods in Fig. \ref{yr-timeseries-comp}).}
+\label{fig:merged-wy}
 \end{figure}
 
-To further explore the event climatology at a more granular level, we focus on results associated with a single water year across all datasets. In particular, we choose the 1995 water year (WY95, September 1995 to August 1996) since this includes the 1996 rain-on-snow floods over the SRB \citep{leathers1998severe}.
+To further explore the event climatology at a more granular level, we focus on results associated with a single water year across all datasets. In particular, we choose the 1995 water year (WY95, September 1995 to August 1996) since this includes the 1996 mid-Atlantic flood which caused significant damage within the SRB \citep{leathers1998severe}.
 
 Fig. \ref{fig:yr-timeseries-comp} shows the daily WY95 time series of basin-integrated PRECT, ROF, and dSWE for all four products. Negative (positive) dSWE denotes snow melt (accumulation). Shaded are events that were flagged by the snowmelt algorithm to be important. Also shown at the top is a stripe with four different gradient shadings, representing days of 75\%, 90\%, 95\%, and 99\% streamflow for United States Geological Survey (USGS) gauge data at Harrisburg, PA (USGS \#01570500), with darker colors representing anomalously high flow conditions.
 
@@ -345,14 +364,13 @@ All four products also indicate a second, more moderate RoS event over the SQ du
 
 Another way to visualize the WY95 data is shown in Fig. \ref{fig:bubble-comp}.  This plot shows the daily distribution of all three quantities by plotting dSWE on the x-axis, PRECIP on the y-axis, and the size of the x-y marker depicting the magnitude of the surface runoff. Markers are filled if the RoS criteria is triggered for that calendar day and are colored red (blue) if there is SWE loss (gain). The variability of the precipitation (y-axis) is the most similar between models, with the vast majority of daily basin-scale precipitation remaining below 30 mm/day, although E3SM produces a few days with more extreme precipitation rates, in agreement with E3SM being a slightly ``wetter'' products. Larger differences are noted the other two metrics. There is wide spread along the y-axis for JRA and E3SM, indicating that the coupled climate system models produce days with larger magnitudes of SWE changes. Further, L15 has markers that are small in size, indicating low daily surface runoff magnitudes when compared to the other three products. It is clear that there is substantial spread across the datasets, even when predicting the same timeseries, particular days further away from the 0,0 point.
 
-
 \section{Discussion}
 
 Here, we interrogate four different datasets that include daily information regarding precipitation, surface runoff, and snow water equivalent in order to quantify differences in how datasets might represent coupled land-atmosphere processes over the historical record. In particular, we focus on rain-on-snow floods over the Susquehanna. Flagging for periods of collocated runoff and dSWE does a reasonable job of marking periods that will be followed by climatologically above-normal streamflow in the basin. We find that using fixed thresholds across multiple datasets leads to large discrepancies in event frequency over the historical period, a factor of 10 between the most active and least active products. Normalizing these thresholds by each product's internal daily distribution improves agreement, although there remains approximately a factor two difference between event counts, implying that the underlying distributions in the reforecast land surface are fundamentally different in both shape and magnitude.
 
 Interestingly, although we refer to these events as RoS events, there is no explicit precipitation requirement in the algorithm. However, we find that 75\% of events have at least one day of greater than 5 mm/day of basin-averaged precipitation and 95\% have at least one day of measurable precipitation as defined as greater than 1 mm/day. This implies that while ablation-only events can lead to rapid snowmelt, the vast majority of events producing large surface flooding signals involve some form of atmospheric precipitation as well. It also underscores the complex assessment of such flood events -- while rainfall onto an existing snowpack is not a primary driver of melt \citep{harpold2018humidity}, the common synoptic meteorological patterns \citep{grote2021synoptic} and additional liquid input to the surface (i.e., runoff being a combination of snowmelt and water flux from the atmosphere) leads to the majority of flood events being associated with at least some precipitation.
 
-How data is generated for forcing is critically important. Since RoS events in regions of ephemeral snow (e.g., SQ) can have surface forcing at hourly timescales (e.g., XXXXXX), using daily meteorological data (as in NLDAS and L15) to force offline LSMs will likely underpredict RoS frequency. This occurs because time-interpolated data (and less frequent coupling) clips short-term extrema and risks offsetting the required superposition of multiple anomalies (e.g., high temperature, extreme rainfall) required to accurately simulate short-term extremes. Even at lower spatial resolutions, models coupled at shorter timescales (e.g., reanalysis, nudged coupled GCMs) produce more accurate land-atmosphere interactions, particularly at shorter weather scales.
+How data is generated for forcing is critically important. Since RoS events in regions of ephemeral snow (e.g., SQ) can have rapid changes in surface forcing at hourly timescales (e.g., \citet{leathers1998severe}), using daily meteorological data (as in NLDAS and L15) to force offline LSMs will likely underpredict RoS frequency. This occurs because time-interpolated data (and less frequent coupling) clips short-term extrema and risks offsetting the required superposition of multiple anomalies (e.g., high temperature, extreme rainfall) required to accurately simulate short-term extremes. Even at lower spatial resolutions, models coupled at shorter timescales (e.g., reanalysis, nudged coupled GCMs) produce more accurate land-atmosphere interactions, particularly at shorter weather scales.
 
 While spatial resolution of the data is important, it appears that the time resolution of data is also critical for transient extremes, such as rain-on-snow flooding. This is particular important given that the synoptic variations in surface temperature and humidity that dictate snowmelt and precipitation phase can occur on the order of hours at local scales. Using daily and/or smoothly interpolated data can reduce their collocated extrema and produce a dataset that contains mismatched forcing or reduced day-to-day variability.
 
@@ -541,8 +559,7 @@ From a stakeholder perspective, this shows that care must be taken when applying
 
 
 \acknowledgments
-Enter acknowledgments, including your data availability statement, here.
-
+...
 
 %% ------------------------------------------------------------------------ %%
 %% References and Citations
@@ -555,8 +572,6 @@ Enter acknowledgments, including your data availability statement, here.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliography{refs-ros-metrics}
-
-
 
 %Reference citation instructions and examples:
 %

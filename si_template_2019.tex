@@ -45,7 +45,7 @@
 % (If you are submitting to a journal other than jgrga,
 % substitute the initials of the journal for "jgrga" below.)
 
-\documentclass[draft,jgrga]{agutexSI2019}
+\documentclass[draft,grl]{agutexSI2019}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -124,7 +124,7 @@
 %\includegraphics{agu_pubart-white_reduced.eps}
 
 
-\title{Supporting Information for "Insert Title"}
+\title{Supporting Information for ``Insert Title''}
 %
 % e.g., \title{Supporting Information for "Terrestrial ring current:
 % Origin, formation, and decay $\alpha\beta\Gamma\Delta$"}
@@ -186,17 +186,14 @@
 \noindent\textbf{Contents of this file}
 %%%Remove or add items as needed%%%
 \begin{enumerate}
-\item Text S1 to Sx
+%\item Text S1 to Sx
 \item Figures S1 to Sx
-\item Tables S1 to Sx
+%\item Tables S1 to Sx
 %if Tables are larger than 1 page, upload as separate excel file
 \end{enumerate}
 \noindent\textbf{Additional Supporting Information (Files uploaded separately)}
 \begin{enumerate}
-\item Captions for Datasets S1 to Sx
-\item Captions for large Tables S1 to Sx (if larger than 1 page, upload as separate excel file)
-\item Captions for Movies S1 to Sx
-\item Captions for Audio S1 to Sx
+\item Captions for Datasets S1
 \end{enumerate}
 
 \noindent\textbf{Introduction}
@@ -209,7 +206,7 @@
 %\clearpage
 
 %Delete all unused file types below. Copy/paste for multiples of each file type as needed.
-\noindent\textbf{Text S1.}
+%\noindent\textbf{Text S1.}
 %Type or paste text here. This should be additional explanatory text, such as: extended descriptions of results, full details of models, extended lists of acknowledgements etc.  It should not be additional discussion, analysis, interpretation or critique. It should not be an additional scientific experiment or paper.
 %
 %Repeat for any additional Supporting Text
@@ -217,18 +214,10 @@
 %%Enter Data Set, Movie, and Audio captions here
 %%EXAMPLE CAPTIONS
 
-\noindent\textbf{Data Set S1.} %Type or paste caption here.
-%upload your dataset(s) to AGU's journal submission site and select "Supporting Information (SI)" as the file type. Following naming %convention: ds01.
 
-%Repeat for any additional Supporting data sets
 
-\noindent\textbf{Movie S1.} %Type or paste caption here.
-%upload your movie(s) to AGU's journal submission site and select, "Supporting Information %(SI)" as the file type. Following naming convention: ms01.
+\noindent\textbf{Data Set S1.} (ds02.tar.gz) gzip archive containing panels identical to Figs. XXX and XXXX except for all other WY in the dataset.
 
-%Repeat any additional Supporting movies
-
-\noindent\textbf{Audio S1.} %Type or paste caption here.
-%upload your audio file(s) to AGU's journal submission site and select "Supporting Information %(SI)" as the file type. Following naming convention: auds01.
 
 
 %Repeat for any additional Supporting audio files
@@ -294,6 +283,17 @@
 %% ------------------------------------------------------------------------ %%
 \end{article}
 \clearpage
+
+\begin{figure}
+\setfigurenum{S1} %%Change number for each figure
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=0.442\linewidth]{{figs/cropped/events_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_AB}.pdf} \\
+\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
+\end{tabular}
+\caption{As in Fig. XXX, except using the FIXED thresholds of 1.4 mm/day for ROF and dSWE instead of the RELATIVE thresholds (95th percentile of each dataset)}
+\label{fig:2D-rad-sens-ex}
+\end{figure}
 
 % Copy/paste for multiples of each file type as needed.
 
