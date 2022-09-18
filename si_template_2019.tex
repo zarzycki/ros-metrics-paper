@@ -218,7 +218,7 @@
 
 \noindent\textbf{Data Set S1.} (ds02.tar.gz) gzip archive containing panels identical to Figs. XXX and XXXX except for all other WY in the dataset.
 
-
+\noindent\textbf{Data Set S2.} (ds02.tar.gz) gzip archive containing panels identical to Figs. XXX and XXXX except for all other WY in the dataset.
 
 %Repeat for any additional Supporting audio files
 
@@ -284,6 +284,33 @@
 \end{article}
 \clearpage
 
+\begin{table}[]
+\centering
+\begin{tabular}{lcccc}
+\hline \textbf{PRECT} &       &      &      &      \\
+               & NLDAS & L15  & JRA  & E3SM \\
+NLDAS          & 1.00  & 0.81 & 0.89 & 0.77 \\
+L15            & 0.81  & 1.00 & 0.76 & 0.93 \\
+JRA            & 0.89  & 0.76 & 1.00 & 0.75 \\
+E3SM           & 0.77  & 0.93 & 0.75 & 1.00 \\ \hline
+\textbf{ROF}   &       &      &      &      \\
+               & NLDAS & L15  & JRA  & E3SM \\
+NLDAS          & 1.00  & 0.85 & 0.88 & 0.82 \\
+L15            & 0.85  & 1.00 & 0.89 & 0.74 \\
+JRA            & 0.88  & 0.89 & 1.00 & 0.83 \\
+E3SM           & 0.82  & 0.74 & 0.83 & 1.00 \\ \hline
+\textbf{dSWE}  &       &      &      &      \\
+               & NLDAS & L15  & JRA  & E3SM \\
+NLDAS          & 1.00  & 0.79 & 0.46 & 0.71 \\
+L15            & 0.79  & 1.00 & 0.34 & 0.66 \\
+JRA            & 0.46  & 0.34 & 1.00 & 0.47 \\
+E3SM           & 0.71  & 0.66 & 0.47 & 1.00 \\ \hline \\
+\end{tabular}
+\caption{List of Pearson correlations of daily timeseries for each dataset-dataset combination. Variables correlated are precipitation (PRECT), surface runoff (ROF), and daily change in snow water equivalent (dSWE).}
+\end{table}
+
+\clearpage
+
 \begin{figure}
 \setfigurenum{S1} %%Change number for each figure
 \centering
@@ -291,7 +318,7 @@
 \includegraphics[width=0.442\linewidth]{{figs/cropped/events_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_AB}.pdf} \\
 \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
 \end{tabular}
-\caption{As in Fig. XXX, except using the FIXED thresholds of 1.4 mm/day for ROF and dSWE instead of the RELATIVE thresholds (95th percentile of each dataset)}
+\caption{As in Fig. 2, except using the FIXED thresholds of 1.4 mm/day for ROF and dSWE instead of the RELATIVE thresholds (95th percentile of each dataset)}
 \label{fig:2D-rad-sens-ex}
 \end{figure}
 
