@@ -269,9 +269,9 @@ Grid cells that have at least 50\% of their area enclosed by the boundary of the
 The resulting domains for each product can be seen in Fig. \ref{fig:means}. A basin-wide time series is then constructed by spatially averaging the three fields for each day and smoothing the resulting time series using a moving average to reduce day-to-day noise in the derived variables. 
 We choose a 5-day window based on synoptic timescales \citep{holton2004introduction}, although different windows didn't materially change any findings.
 
-RoS days are defined algorithmically by flagging concurrent temporal windows of negative dSWE and positive ROF that both exceed pre-defined thresholds in the smoothed time series. 
-We test two methods of thresholding; one uses fixed thresholds across all four datasets (FIXED) and the other defines dataset-specific thresholds by those exceeding 95\% of all daily values (RELATIVE). 
-For fixed thresholds, we require an average dSWE of -1.4 mm/day and ROF of 1.4 mm/day based on a manual sensitivity analysis. To enforce a criterion that precipitation occurs during at least some portion of the event, we require an average PRECIP of 2 mm/day. 
+RoS days are defined algorithmically by flagging periods of negative dSWE and positive ROF that both exceed specified thresholds in the smoothed time series. Contiguous days are considered to be part of a single event such that events can last for different durations.
+We test two methods of thresholding; one uses fixed thresholds across all four datasets (FIXED) and the other defines dataset-specific thresholds by those exceeding 95\% of all daily values (RELATIVE).
+For FIXED, we require an average dSWE of -1.4 mm/day and ROF of 1.4 mm/day based on a manual sensitivity analysis. Thresholds in the RELATIVE configuration are calculated independently for each dataset by setting the threshold to the 95\% value of its own 1985-2005 smoothed timeseries. To enforce a criterion that precipitation occurs during at least some portion of the event, we require an average PRECIP of 2 mm/day, which is kept the same in both the FIXED and RELATIVE configurations.
 To confirm all datasets adequately represent the same period, Pearson correlations of basin-wide statistics were statistically significant with a two-sided $t$-test between all permutations of daily timeseries (Table SX), confirming all datasets adequately represent the same period.
 
 %Note that while the majority of the events are associated with PRECIP we do not include a specific criterion, but rather, leverage ROF as a proxy for surface flooding. 
@@ -323,7 +323,7 @@ However, even when accounting for the baseline climatological differences of the
 \begin{table}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllllllllll}
-                & ROF\_t & dSWE\_t & Events & Duration & dSWE & dSWE\_max & ROF & ROF\_max & PRECIP & PRECIP\_max \\
+                & ROF$\_t$ & dSWE$\_t$ & Events & Duration & dSWE & dSWE\_max & ROF & ROF\_max & PRECIP & PRECIP\_max \\
 \shortstack{$FIXED$ \\ $(absolute$ $magnitude)$}          &        &         &        &          &      &           &     &          &        &             \\
 L15             & 1.4   & 1.4    & 6      & 3.2      & 6.8  & 7.5       & 1.6 & 1.7      & 8.6    & 9.1         \\
 NLDAS           & 1.4   & 1.4    & 17     & 3.0      & 3.8  & 4.5       & 1.9 & 2.0      & 5.8    & 6.4         \\
@@ -343,7 +343,8 @@ E3SM            & 1.8   & 2.2    & 42     & 4.6      & 6.9  & 8.5       & 2.6 & 
 
 The differences across gridded climate data products are also shown in Fig. \ref{fig:histograms}. 
 All plot subpanels show statistics using RELATIVE, although the same figures for FIXED are shown in the Supplementary Material. 
-Figure \ref{fig:histograms}a shows the total number of RoS events flagged over the climatological period (third column of Table \ref{table:means}), while Figures \ref{fig:histograms}b-d show the binned probabilities of daily maximum, basin-averaged, event-level PRECIP, ROF, and dSWE. 
+Figure \ref{fig:histograms}a shows the total number of RoS events flagged over the climatological period (third column of Table \ref{table:means}), while Figs. \ref{fig:histograms}b-d show the frequency distribution for basin-averaged maximum rates of PRECIP, ROF, and dSWE at the event level. These are calculated by selecting the maximum daily value from the array of actual (i.e., unsmoothed) daily values during each RoS event.
+
 The maximum PRECIP associated with flagged RoS events is similar between the four gridded climate data products, with E3SM tending to have slightly more extreme PRECIP occurring over the SRB (in agreement with Figure \ref{fig:means}). 
 Larger differences are seen in ROF and dSWE. 
 In ROF, both the E3SM and JRA datasets produce larger event magnitudes of ROF, and subsequently have longer tails in their probability distributions, compared to the other two datasets. 
@@ -361,7 +362,7 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 \includegraphics[width=0.442\linewidth]{{figs/cropped/events_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_95}.pdf} \\
 \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
 \end{tabular}
-\caption{Histogram statistics for RoS events across the data products for the RELATIVE detection framework. The number of RoS events for each product from 1985-2005 is shown in the top left. In the other three panels, frequency distributions of the rate (mm/day) of maximum precipitation (PRECIP), maximum runoff (ROF), and maximum daily change in snow water equivalent (dSWE) for each flagged RoS event are shown.}
+\caption{Histogram statistics for RoS events across the data products for the RELATIVE detection framework. The number of RoS events for each product from 1985-2005 is shown in the top left. The other three panels show frequency distributions of the daily rate (mm/day) of maximum precipitation (PRECIP), maximum runoff (ROF), and maximum change in snow water equivalent (dSWE, snowmelt positive).}
 \label{fig:histograms}
 \end{figure}
 
