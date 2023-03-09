@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 PYDIR=/Users/cmz5202/Software/ros/ros/
 
 cp -v ${PYDIR}/output/*_1995_events.pdf .
