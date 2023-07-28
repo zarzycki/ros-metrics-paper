@@ -1,3 +1,6 @@
+*.gz
+*.aux
+*.log
 .DS_Store
 .texpadtmp/
 main.pdf
