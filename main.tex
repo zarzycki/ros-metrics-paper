@@ -31,9 +31,9 @@
 %\usepackage{algorithm}
 %\usepackage{amsthm}
 \usepackage{float}
-\usepackage{subfig}
-\usepackage{rotating}
-
+%\usepackage{rotating}
+\usepackage[percent]{overpic}
+\usepackage{contour}
 
 
 %\usepackage{url} %this package should fix any errors with URLs in refs.
@@ -427,30 +427,90 @@ While daily PRECIP in each product differs somewhat, it should be noted that the
 Rather, the majority of the differences in RoS events flagged arise from lower magnitudes of ROF and dSWE in the L15, and dSWE in NLDAS.
 It is worth noting that L15 and NLDAS produce fewer RoS events regardless of which thresholding technique is used, so not only are the distributions of relevant daily variables shifted relative to the other models, but their skewness is impacted as well (Figs. \ref{fig:histograms} and \ref{fig:histograms2}).
 
+%\begin{figure}
+%\begin{tabular}{cc}
+%\includegraphics[width=0.442\linewidth]{{figs/cropped/events_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_AB}.pdf} \\
+%\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
+%\end{tabular}
+%\caption{Histogram statistics for RoS events within the FIXED detection framework. The number of RoS events for each product from 1985-2005 is shown in the top left. The other three panels show frequency distributions of the daily rate (mm/day) of maximum precipitation (PRECIP), maximum runoff (ROF), and maximum change in SWE (dSWE, snowmelt positive).}
+%\label{fig:histograms2}
+%\end{figure}
+
+\contourlength{.08em}% default is 0.03em
+
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.442\linewidth]{{figs/cropped/events_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_AB}.pdf} \\
-\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/events_AB}.pdf}
+\put (11,72) {\contour{white}{\large a.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_AB}.pdf}
+\put (11,72) {\contour{white}{\large b.}}
+\end{overpic}
+\\
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_AB}.pdf}
+\put (11,72) {\contour{white}{\large c.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
+\put (11,72) {\contour{white}{\large d.}}
+\end{overpic}
 \end{tabular}
 \caption{Histogram statistics for RoS events within the FIXED detection framework. The number of RoS events for each product from 1985-2005 is shown in the top left. The other three panels show frequency distributions of the daily rate (mm/day) of maximum precipitation (PRECIP), maximum runoff (ROF), and maximum change in SWE (dSWE, snowmelt positive).}
 \label{fig:histograms2}
 \end{figure}
 
+%\begin{figure}
+%\begin{tabular}{cc}
+%\includegraphics[width=0.442\linewidth]{{figs/cropped/events_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_95}.pdf} \\
+%\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
+%\end{tabular}
+%\caption{Same as Fig. \ref{fig:histograms2} except for the RELATIVE detection thresholds.}
+%\label{fig:histograms}
+%\end{figure}
+
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.442\linewidth]{{figs/cropped/events_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_95}.pdf} \\
-\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/events_95}.pdf}
+\put (11,72) {\contour{white}{\large a.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_95}.pdf}
+\put (11,72) {\contour{white}{\large b.}}
+\end{overpic}
+\\
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_95}.pdf}
+\put (11,72) {\contour{white}{\large c.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
+\put (11,72) {\contour{white}{\large d.}}
+\end{overpic}
 \end{tabular}
 \caption{Same as Fig. \ref{fig:histograms2} except for the RELATIVE detection thresholds.}
 \label{fig:histograms}
 \end{figure}
 
+
 \subsection{Single-year evaluation}
 
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf} \\
-\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf}
+\put (12,38.5) {\contour{white}{\large a.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf}
+\put (12,38.5) {\contour{white}{\large b.}}
+\end{overpic}
+\\
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf}
+\put (12,38.5) {\contour{white}{\large c.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
+\put (12,38.5) {\contour{white}{\large d.}}
+\end{overpic}
 \end{tabular}
 \caption{Time series of daily precipitation (PRECIP; green), surface runoff (ROF; orange), and SWE loss (dSWE; pink) during WY95 for each of the four products. Vertical purple shading denotes periods flagged as a rain-on-snow event. At the top of each time series are colored bars that denote extreme values (greater than the 75th percentile) of observed USGS streamflow at Harrisburg, Pennsylvania, with very dark hues representing 99th percentile values over the 1980-2005 period.}
 \label{fig:yr-timeseries-comp}
@@ -458,8 +518,22 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf} \\
-\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf}
+\put (12,63) {\contour{white}{\Large a.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf}
+\put (12,63) {\contour{white}{\Large b.}}
+\end{overpic}
+\\
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf}
+\put (12,63) {\contour{white}{\Large c.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
+\put (12,63) {\contour{white}{\Large d.}}
+\end{overpic}
+
 \end{tabular}
 \caption{Bubble plots comparing precipitation (PRECIP; y-axis), SWE change (dSWE; x-axis), and surface runoff (size of bubble) for each of the four datasets during WY95. For each bubble, the values come from the same calendar day. Filled bubbles were flagged by the algorithm as a rain-on-snow event (purple shaded periods in Fig. \ref{fig:yr-timeseries-comp}).}
 \label{fig:bubble-comp}
@@ -514,15 +588,37 @@ This is likely due to daily differences in the timing of storms, the amount of w
 %\label{fig:allswewy95}
 %\end{figure}
 
+%\begin{figure}
+%\begin{tabular}{cc}
+%\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf} \\
+%\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
+%\end{tabular}
+%\caption{Daily SWE timeseries averaged over the SRB during WY95 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
+%\label{fig:allswewy95}
+%\end{figure}
+
+%%% \put HORIZ, VERT from bottom left
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf} \\
-\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf}
+\put (11,38) {\contour{white}{\large a.}}
+\end{overpic}
+& 
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf}
+\put (11,38) {\contour{white}{\large b.}}
+\end{overpic}
+\\
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf}
+\put (11,38) {\contour{white}{\large c.}}
+\end{overpic}
+&
+\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
+\put (11,38) {\contour{white}{\large d.}}
+\end{overpic}
 \end{tabular}
 \caption{Daily SWE timeseries averaged over the SRB during WY95 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
 \label{fig:allswewy95}
 \end{figure}
-
 
 % \begin{figure}
 % \begin{tabular}{cc}
