@@ -125,13 +125,14 @@
 %\correspondingauthor{Colin M. Zarzycki}{cmz5202@psu.edu}
 
 \Author[1]{Colin M.}{Zarzycki}
-\Author[1]{Benjamin D.}{Ascher}
+\Author[1,*]{Benjamin D.}{Ascher}
 \Author[2]{Alan M.}{Rhoades}
 \Author[3]{Rachel R.}{McCrary}
 
 \affil[1]{Department of Meteorology and Atmospheric Science, The Pennsylvania State University, University Park, PA, USA}
 \affil[2]{Climate and Ecosystem Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, CA, USA}
 \affil[3]{NSF, National Center for Atmospheric Research, Research Applications Laboratory, Boulder, CO, USA}
+\affil[*]{now at Colorado State University}
 
 \correspondence{Colin M. Zarzycki (cmz5202@psu.edu)}
 
@@ -254,15 +255,15 @@ Rain-on-snow (RoS) events have been increasingly studied over the past few decad
 Correspondingly, there has been less focus in areas with more ephemeral snow cover, such as the northeastern United States (US), even though these compound events produce many cases of `slow-rise' flooding -- floods generally occurring more than six hours after the onset of the meteorological driver \citep{dougherty2021high}.
 Climatologically, RoS events in the northeastern US peak in late winter and spring \citep{ashley2008flood,villarini2010flood,dougherty2019climatology,wachowicz2020rain} and are key drivers of flooding in New England and the Atlantic side of Canada \citep{collins2014annual}.
 Synoptic case study analyses of recent RoS events in the mid-Atlantic highlight inland-running extratropical cyclones that advect warm, moist air into the region as key dynamical drivers \citep{grote2021synoptic,suriano2023atmospheric}.
-Rapid snow ablation in ephemeral snow regions has been shown to have a strong correlation with increases in basin streamflow in the days following snowmelt \citep{suriano2020discharge,suriano2023atmospheric}. %CMZ add cites?
+Rapid snow ablation in ephemeral snow regions has been shown to have a strong correlation with increases in basin streamflow in the days following snowmelt \citep{suriano2020discharge,suriano2023atmospheric}.
 
 While climatological studies are critically important, event-level analysis has become increasingly valuable when communicating climate risks \citep{shepherd2018storylines}.
 One river basin in the northeastern US that has historically dealt with RoS events is the Susquehanna River Basin (SRB) -- a basin home to more than four million people \citep{leathers2008hydroclimatic} and one considered climatologically flood-prone due to the wide variety of weather phenomena that occur within the region \citep{perry2000significant}.
 The most consequential non-tropical-cyclone flood in recent SRB history was a RoS flood that occurred in January 1996, resulting in $\sim$\$1.5 billion in damages and 30 fatalities \citep{leathers1998severe}. Significant events such as this are frequently used by stakeholders as a point of reference for real-time forecasts and long-term planning \citep{george2019the}.
 Other evidence, such as the Great Flood of 1936 (another RoS event) and the fact that sediment records indicate prehistoric periods of high flood activity are associated with negative phases of the North Atlantic Oscillation (NAO) (which drive positive snowpack anomalies in the northeastern US, \citep{hartley1998synoptic}) underscore the importance of these events to regional hydrology \citep{toomey2019the}.
 
-While studying historical events is important for planning purposes, and historical reforecasts using imposed warming approaches can provide clues as to how similar events may unfold in the future (e.g., \citet{pettett2023the}), it is difficult for such approaches to provide more overarching risk assessments from a frequency-of-occurrence perspective. For these climatological evaluations it is desirable to be able to identify such events in both observational datasets and model simulations, including future climate projections. 
-Unfortunately, quantifying extreme, compound, and discrete events in climate data sets is a complex challenge, particularly because such datasets are not necessarily developed specifically for this purpose (see CMZ adequate-for-purpose) and there is typically a lack of observational reference datasets to quantify their fidelity.
+While studying historical events is important for planning purposes, and historical reforecasts using imposed warming approaches can provide clues as to how similar events may unfold in the future (e.g., \citet{pettett2023the}), it is difficult for such approaches to provide more overarching risk assessments from a frequency-of-occurrence perspective. For these climatological evaluations, it is desirable to be able to identify such events in both observational datasets and model simulations, including future climate projections.
+Unfortunately, quantifying extreme, compound, and discrete events in climate data sets is a complex challenge, particularly because such datasets are not necessarily developed specifically for this purpose \citep{angelil2017an,parker2020model} and there is commonly a lack of observational reference datasets to quantify their fidelity.
 Gridded datasets (spatiotemporally continuous data provided on a regular latitude-longitude mesh) of the historical record are frequently used to assess hydrometeorological extremes in locations with poor or non-existent station observations and climate analyses requiring multiple complex variables in addition to evaluating model sensitivity and performance.
 Further, future changes in RoS event frequency and character due to climate change are projected via the use of free-running models, which operate on numerical grids and don't have an a priori station record to compare to, making the evaluation of such events algorithmically a requirement.
 
@@ -288,12 +289,12 @@ NLDAS uses a combination of daily observations and radar data to produce hourly 
 While there are multiple NLDAS-2 LSMs that produce hydrologic output variables, we analyze only the NLDAS-VIC4.0.5 as it is the most methodologically consistent with L15.
 We also analyze a $\sim$0.5\degree{} global reanalysis (JRA-55, \citet{kobayashi2015jra55}), generated by running a prognostic ESM while continually assimilating observational data during integration.
 Global reanalyses serve as a bridge between in-situ, but spatio-temporally unstructured, observational data and free-running climate models \citep{parker2016reanalyses}.
-Finally, a $\sim$1\degree{} nudged version of the U.S. Department of Energy (DOE) Energy Exascale Earth System Model (E3SM) model is analyzed \citep{zhang2022further}. Assessing this dataset provides insight into the capability of ESMs used in climate assessments (e.g., the Coupled Model Intercomparison Project Phase 6 (CMIP6 CMZ CITE)) to capture observed hydrometeorological extreme events.
+Finally, a $\sim$1\degree{} nudged version of the U.S. Department of Energy (DOE) Energy Exascale Earth System Model (E3SM, \citet{golaz2022the}) model is analyzed \citep{zhang2022further}. Assessing this dataset provides insight into the capability of ESMs used in climate assessments (e.g., the Coupled Model Intercomparison Project Phase 6 (CMIP6), \citet{eyring2016overview}) to capture observed hydrometeorological extreme events.
 E3SM performs close to the CMIP6 ensemble mean across several measures of skill \citep{Fasullo2020}.
 To constrain the large-scale meteorology in E3SM to match observed conditions, the E3SM simulation is nudged using 6-hourly fields from the ERA5 reanalysis \citep{hersbach2020era5} generated using the technique contained in the Betacast toolkit, initially outlined in \citet{zarzycki2015experimental}.
-This nudging acts as a crude assimilation technique and is only applied in the free atmosphere (CMZ specify).
+This nudging acts as a crude assimilation technique and is only applied in the free atmosphere (above nominally 850 hPa, or 1 kilometer). The zonal and meridional winds are nudged to ERA5 analysis with a relaxation timescale $\tau$ = 3 hours and the temperature is nudged with $\tau$ = 24 hours. No nudging is performed on the surface pressure or moisture fields.
 Nudged E3SM, therefore, reproduces observed patterns of 500 hPa geopotential height and sea level pressure while simulating grid-scale processes relatively untethered by the nudging reanalysis product \citep{sun2019impact}.
-E3SM is run on an unstructured cubed-sphere mesh and simulation output is remapped to a 1\degree{}x1\degree{} rectilinear grid using higher-order methods \citep{hill2004architecture}. All model settings are left as the default contained in the release used here CMZ.
+E3SM is run with a spectral element dynamical core on an unstructured cubed-sphere mesh ($n_e$30$n_p$4) and simulation output is remapped to a 1\degree{}x1\degree{} rectilinear grid using higher-order methods \citep{hill2004architecture}. All model settings and tunings are left as the default contained in the commit used here (f9cbe57).
 
 \subsection{Defining basin-scale events}
 
@@ -315,7 +316,7 @@ To enforce a criterion that precipitation occurs during at least some portion of
 This supports the notion that similar synoptic meteorological patterns \citep{grote2021synoptic} and additional liquid input to the surface (i.e., runoff being a combination of snowmelt and water flux from the atmosphere) lead to the majority of RoS floods being associated with, at least, some precipitation versus precipitation alone being a primary driver of such events.
 We argue this also corroborates the finding that actual heat transfer between the liquid rain and the surface of the snowpack is rather small and explains only a small fraction of the observed snowmelt \citep{moore1984controls}.
 
-For context, our definition here of RoS is somewhat arbitrary. Most studies enforce some fixed combination of precipitation and snowpack threshold. \citet{ye2008winter} classified events as liquid precipitation falling onto at least 10 mm of existing snowpack in a gridbox. \citet{musselman2018projected} define `RoS days' where at least 10 mm of precipitation falls on at least 10 mm of snowpack in a given day. This technique was adopted by \citet{lopez2021changes} and \citet{maina2023diverging}. A similar strategy, but applying higher thresholds (20 mm precipitation, 250 mm snowpack), was used by \citet{wurzer2016influence}. Instead of a SWE metric, others have applied snow cover fraction or some other snow/no-snow classification in addition to a precipitation threshold \citep{mazurkiewicz2008assessing,pradhanang2013rain,cohen2015trends}. Others include some measure of snowmelt, such as \citet{freudiger2014large} and \citet{li2019the} who required 3 mm of rainfall, 10 mm SWE, and a 20\% reduction in the snowpack (implied dSWE $<=$-20 mm/day). \citet{suriano2022north} similarly required 10 mm of daily snow depth decrease that occurred in combination with above freezing temperatures and non-zero precipitation. However, relative strategies have also been proposed, such as the 98\% threshold used for covarying extremes in the compound event analysis of \citet{poschlod2020climate}. Other studies simply require the joint occurrence of precipitation and snowmelt in a given period \citep{mccabe2007rain,surfleet2013variability,collins2014annual,guan2016hydrometeorological,jeong2018rain}. \citet{wachowicz2020rain} used the same gridded data and explored four different definitions derived from some of the above and found high-level agreement.
+For context, our definition here of RoS is somewhat arbitrary. Most studies enforce some fixed combination of precipitation and snowpack threshold. \citet{ye2008winter} classified events as liquid precipitation falling onto at least 10 mm of existing snowpack in a gridbox. \citet{musselman2018projected} define `RoS days' where at least 10 mm of precipitation falls on at least 10 mm of snowpack in a given day. This technique was adopted by \citet{lopez2021changes} and \citet{maina2023diverging}. A similar strategy, but applying higher thresholds (20 mm precipitation, 250 mm snowpack), was used by \citet{wurzer2016influence}. Instead of a SWE metric, others have applied snow cover fraction or some other snow/no-snow classification in addition to a precipitation threshold \citep{mazurkiewicz2008assessing,pradhanang2013rain,cohen2015trends}. Others include some measure of snowmelt, such as \citet{freudiger2014large} and \citet{li2019the} who required 3 mm of rainfall, 10 mm SWE, and a 20\% reduction in the snowpack (implied dSWE $<=$-20 mm/day). \citet{suriano2022north} similarly required a 10 mm daily snow depth decrease that occurred in combination with above-freezing temperatures and non-zero precipitation. However, relative strategies have also been proposed, such as the 98\% threshold used for covarying extremes in the compound event analysis of \citet{poschlod2020climate}. Other studies simply require the joint occurrence of precipitation and snowmelt in a given period \citep{mccabe2007rain,surfleet2013variability,collins2014annual,guan2016hydrometeorological,jeong2018rain}. \citet{wachowicz2020rain} used the same gridded data and explored four different definitions derived from some of the above and found high-level agreement.
 
 This brief literature review is not meant to be considered exhaustive, but rather to highlight that both RoS evaluation techniques in this manuscript fall within the scope of existing strategies. It also emphasizes that extreme RoS events in mountainous regions with more seasonal snowpack or those using gridpoint values versus basin-integrated metrics may require different thresholds. With the caveat that much of the previously cited RoS work has focused on regions with less ephemeral snowpack (e.g., western U.S. mountains), the algorithm discussed here falls within the envelope of previously published results both from a heuristic perspective and also with respect to our defined thresholds.
 
@@ -325,19 +326,19 @@ Lastly, to show all datasets adequately represent the same period, Pearson corre
 \caption{Pearson correlations between data products for daily timeseries of precipitation (top), surface runoff (middle), and 24-hour change in snow water equivalent (bottom) over the study period. All values are correlated significantly at greater than the 99.9\% confidence level using a two-sided $t$-test, indicating that all timeseries represent the same historical period and include relevant day-to-day variations over the SRB.}
 \begin{tabular}{lcccc}
  \hline
-      &      & PRECIP &       &       \\ \hline 
+      &      & PRECIP &       &       \\ \hline
       & JRA  & L15    & NLDAS & E3SM \\
 JRA   & 1.00 & 0.76   & 0.89  & 0.75 \\
 L15   & 0.76 & 1.00   & 0.81  & 0.93 \\
 NLDAS & 0.89 & 0.81   & 1.00  & 0.77 \\
 E3SM  & 0.75 & 0.93   & 0.77  & 1.00  \\ \hline \hline
-      &      & ROF    &       &      \\ \hline 
+      &      & ROF    &       &      \\ \hline
       & JRA  & L15    & NLDAS & E3SM \\
 JRA   & 1.00 & 0.89   & 0.88  & 0.83 \\
 L15   & 0.89 & 1.00   & 0.85  & 0.74 \\
 NLDAS & 0.88 & 0.85   & 1.00  & 0.82 \\
 E3SM  & 0.83 & 0.74   & 0.82  & 1.00 \\ \hline \hline
-      &      & dSWE   &       &      \\ \hline 
+      &      & dSWE   &       &      \\ \hline
       & JRA  & L15    & NLDAS & E3SM \\
 JRA   & 1.00 & 0.34   & 0.46  & 0.47 \\
 L15   & 0.34 & 1.00   & 0.79  & 0.66 \\
@@ -411,9 +412,9 @@ E3SM  & 2.2     & 1.8     & 2.0     & 41  & 4.1          & 8.0          & 2.9   
 \label{table:means}
 \end{table}
 
-The differences across gridded climate data products are also shown in Fig. \ref{fig:histograms2} (FIXED) and in Fig. \ref{fig:histograms} (RELATIVE). We focus our discussion on the relative threshold results in Fig. \ref{fig:histograms} for brevity, although note that the distributions of event statistics (panels b-d CMZ) are qualitatively similar between the two.
+The differences across gridded climate data products are also shown in Fig. \ref{fig:histograms2} (FIXED) and in Fig. \ref{fig:histograms} (RELATIVE). We focus our discussion on the relative threshold results in Fig. \ref{fig:histograms} for brevity, although note that the distributions of event statistics (Fig. \ref{fig:histograms2} b-d and Fig. \ref{fig:histograms} b-d) are qualitatively similar between the two.
 
-Figure \ref{fig:histograms}a shows the total number of RoS events flagged over the climatological period (fourth column of Table \ref{table:means}), while Figs. \ref{fig:histograms}b-d show the frequency distribution for basin-averaged maximum rates of PRECIP, ROF, and dSWE at the event level. These are calculated by selecting the maximum daily value from the array of actual (i.e., unsmoothed) daily values during each RoS event.
+Figure \ref{fig:histograms}a shows the total number of RoS events flagged over the climatological period (fourth column of Table \ref{table:means}), while Fig. \ref{fig:histograms}b-d shows the frequency distribution for basin-averaged maximum rates of PRECIP, ROF, and dSWE at the event level. These are calculated by selecting the maximum daily value from the array of actual (i.e., unsmoothed) daily values during each RoS event.
 
 The maximum PRECIP associated with flagged RoS events is similar between the four datasets, with E3SM tending to have slightly more extreme PRECIP occurring over the SRB (in agreement with Fig. \ref{fig:means}).
 Much larger differences are seen in ROF and dSWE.
@@ -424,8 +425,8 @@ Of note, JRA and E3SM have broader distributions (i.e., longer tails) but the JR
 
 In summary, using either a relative or fixed threshold to identify RoS events, the fully-coupled ESMs (E3SM and JRA) produce more events than L15 and NLDAS.
 While daily PRECIP in each product differs somewhat, it should be noted that these differences are relatively small.
-Rather, the majority of the differences in RoS events flagged arise from lower magnitudes of ROF and dSWE in the L15, and dSWE in NLDAS.
-It is worth noting that L15 and NLDAS produce fewer RoS events regardless of which thresholding technique is used, so not only are the distributions of relevant daily variables shifted relative to the other models, but their skewness is impacted as well (Figs. \ref{fig:histograms} and \ref{fig:histograms2}).
+Rather, the majority of the differences in RoS events flagged arise from lower magnitudes of ROF and dSWE in L15 and dSWE in NLDAS.
+It is worth noting that L15 and NLDAS produce fewer RoS events regardless of which thresholding technique is used, so not only are the distributions of relevant daily variables shifted relative to the other models, but their skewness is impacted as well (Figs. \ref{fig:histograms2} and \ref{fig:histograms}).
 
 %\begin{figure}
 %\begin{tabular}{cc}
@@ -550,7 +551,7 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 % \end{figure}
 
 To further explore RoS events at a more granular level we focus on results associated with the 1995 water year (WY95, October 1995 to September 1996).
-We chose this WY since this includes the January 1996 SRB flood that is often used disaster planning purposes in the region \citep{army2001non}.
+We chose this WY since this includes the January 1996 SRB flood that is often used for disaster planning purposes in the region \citep{army2001non}.
 The same visualizations for other WYs are included in the data download associated with this manuscript.
 
 Figure \ref{fig:yr-timeseries-comp} shows the SRB daily WY95 time series of basin-integrated PRECIP, ROF, and dSWE.
@@ -560,7 +561,7 @@ At the top of each panel is a stripe with four different shadings, representing 
 
 The January 17-18, 1996 event is readily apparent for three of the four data products (NLDAS, JRA, and E3SM).
 Observed streamflow spiked during and immediately after the RoS event as shown by the dark blue stripes at the top of each time series, indicating a lag between when the RoS event algorithm identifies changes in PRECIP, dSWE, and ROF and the observed daily streamflow gage observation at Harrisburg (namely, the 99th percentile streamflow exceedance).
-While this is operationally the largest RoS event observed over the period, there remain large discrepancies in the hydrometerological conditions between the datasets.
+While this is operationally the largest RoS event observed over the period, there remain large discrepancies in the hydrometeorological conditions between the datasets.
 The dSWE signal is the largest in magnitude within JRA and E3SM compared to NLDAS.
 L15 shows a very minimal dSWE, to the point that $t_\textrm{dSWE}$ is not exceeded in the detection algorithm.
 PRECIP is more similar across the three datasets, implying that the reduced ROF in L15 is likely due to minimal snowmelt.
@@ -603,7 +604,7 @@ This is likely due to daily differences in the timing of storms, the amount of w
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf}
 \put (11,38) {\contour{white}{\large a.}}
 \end{overpic}
-& 
+&
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf}
 \put (11,38) {\contour{white}{\large b.}}
 \end{overpic}
@@ -629,8 +630,8 @@ This is likely due to daily differences in the timing of storms, the amount of w
 % \label{fig:allswewy95}
 % \end{figure}
 
-One notable question given the above analysis is why the January 1996 event is captured differently across the products, particularly why is it `unseen' by the L15 dataset?
-Fig. \ref{fig:allswewy95} shows the evolution of total on-surface SWE over WY95 for all datasets. %CMZ improve figure, add panels and font size
+One notable question given the above analysis is why the January 1996 event is captured differently across the products, particularly `why is it `unseen' by the L15 dataset?'
+Fig. \ref{fig:allswewy95} shows the evolution of total on-surface SWE over WY95 for all datasets.
 All products show increasing SWE from mid-December onwards, albeit with varying accumulation rates and maximum depths.
 The datasets most differ in the SWE ablation during mid-January, with L15 showing essentially no ablation of the existing snowpack, JRA showing near total ablation, and E3SM and NLDAS lying somewhere between the two extremes.
 
@@ -698,7 +699,7 @@ We also show that even though a dataset is provided at much coarser spatial reso
 
 We want to emphasize that this work doesn't aim to suggest a `superior' dataset writ large. For example, even though L15 does not capture the 1996 SRB flood as well as other products here, it has been an invaluable tool for studying climate extremes such as heat waves \citep{mazdiyasni2015substantial}, droughts \citep{pendergrass2020flash,williams2020large}, and wildfires \citep{williams2019observed} (amongst others) in the US.
 Rather, we offer a few suggestions about leveraging hydrometeorological data for application purposes.
-It is recommended that gridded climate data developers consider the temporal resolution of land surface forcing if the representation of daily (or subdaily) hydrometeorological extrema is desirable, particularly from a use-inspired or decision-relevant context \citep{Jagannathan2021}.
+It is recommended that gridded climate data developers consider the temporal resolution of land surface forcing if the representation of daily (or sub-daily) hydrometeorological extrema is desirable, particularly from a use-inspired or decision-relevant context \citep{Jagannathan2021}.
 While we do not downscale any datasets in this study, it is likely that using different meteorological data to force the same land surface and/or hydrological model will result in vastly different predicted streamflows, particularly for RoS events when variables are spatiotemporally co-dependent and would be sensitive to any post-processing adjustments (e.g., mean climatological correction). When possible, sub-daily information about atmospheric dynamics should be included in meteorological forcing data.
 
 From a stakeholder perspective, this is an important consideration when back-testing models, and, in particular, applying such models to evaluate tail risks (e.g., 1-in-100-year flood events and how they may change in a future climate).
@@ -861,7 +862,7 @@ While post-processing adjustments to the mean climatology may be desirable, thes
 
 
 \codedataavailability{
-L15 data was downloaded from the National Oceanic and Atmospheric (NOAA) Administration Physical Science Laboratory, available at \url{https://psl.noaa.gov/data/gridded/data.livneh.html}. NLDAS-VIC4.0.5 data was downloaded from the NOAA National Centers for Environmental Prediction, available at \url{ftp://ldas.ncep.noaa.gov/nldas2/retrospective/vic4.0.5}. JRA-55 data was downloaded from the Research Data Archive at the National Center for Atmospheric Research, Computational and Information Systems Laboratory, available at \url{https://doi.org/10.5065/D6HH6H41}. The version of E3SM run here was v2.0.0-alpha.2-1816-gf9cbe57a2 and is available at https://github.com/E3SM-Project/E3SM. ERA5 data used to nudge the E3SM solution was downloaded from the Copernicus Climate Data Store (CDS), available at \url{https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5}. Station data for Harrisburg, Pennsylvania was acquired from the Iowa Environmental Mesonet at \url{https://mesonet.agron.iastate.edu/}. The SRB is defined using a shapefile provided by the SRB Commission (\url{https://www.srbc.net/portals/susquehanna-atlas/data-and-maps/subbasins/index.html}). All processed data, figures, and scripts used to generate the results contained in this manuscript (along with README documentation) are archived at Zenodo and be accessed at \url{xxxxxx}.
+L15 data was downloaded from the NOAA Administration Physical Science Laboratory, available at \url{https://psl.noaa.gov/data/gridded/data.livneh.html}. NLDAS-VIC4.0.5 data was downloaded from the NOAA National Centers for Environmental Prediction, available at \url{ftp://ldas.ncep.noaa.gov/nldas2/retrospective/vic4.0.5}. JRA-55 data was downloaded from the Research Data Archive at the National Center for Atmospheric Research, Computational and Information Systems Laboratory, available at \url{https://doi.org/10.5065/D6HH6H41}. The version of E3SM run here was v2.0.0-alpha.2-1816-gf9cbe57a2 and is available at https://github.com/E3SM-Project/E3SM. ERA5 data used to nudge the E3SM solution was downloaded from the Copernicus Climate Data Store (CDS), available at \url{https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5}. Station data for Harrisburg, PA was acquired from the Iowa Environmental Mesonet at \url{https://mesonet.agron.iastate.edu/}. The SRB is defined using a shapefile provided by the SRB Commission (\url{https://www.srbc.net/portals/susquehanna-atlas/data-and-maps/subbasins/index.html}). All processed data, figures, and scripts used to generate the results contained in this manuscript (along with README documentation) are archived at Zenodo and can be accessed at \url{xxxxxx}.
 }
 
 
@@ -895,7 +896,7 @@ L15 data was downloaded from the National Oceanic and Atmospheric (NOAA) Adminis
 %\disclaimer{TEXT} %% optional section
 
 \begin{acknowledgements}
-This work is supported by the U.S. Department of Energy (DOE), Office of Science, Office of Biological and Environmental Research program under Award DE-SC0016605 ``A framework for improving analysis and modeling of Earth system and intersectoral dynamics at regional scales.'' Data acquisition and E3SM simulations were completed at the DOE National Energy Research Scientific Computing Center (NERSC) at Lawrence Berkeley National Laboratory (DE-AC02-05CH11231) using NERSC award ERCAP0020801. Event algorithm development, calibration, and analysis was performed on the Pennsylvania State University's Institute for Computational and Data Sciences' Roar supercomputer. The authors thank Dr. Andrew Jones for initial thoughts regarding the bubble plot diagnostics contained in this paper.
+This work is supported by the U.S. Department of Energy (DOE), Office of Science, Office of Biological and Environmental Research program under Award DE-SC0016605 ``A framework for improving analysis and modeling of Earth system and intersectoral dynamics at regional scales.'' Data acquisition and E3SM simulations were completed at the National Energy Research Scientific Computing Center (NERSC), a U.S. Department of Energy Office of Science User Facility located at Lawrence Berkeley National Laboratory, operated under Contract No. DE-AC02-05CH11231 using NERSC award BER-ERCAP0020801. Event algorithm development, calibration, and analysis was performed on the Pennsylvania State University's Institute for Computational and Data Sciences' Roar supercomputer. The authors thank Dr. Andrew Jones for initial thoughts regarding the bubble plot diagnostics contained in this paper.
 \end{acknowledgements}
 
 %% ------------------------------------------------------------------------ %%
