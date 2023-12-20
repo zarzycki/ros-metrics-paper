@@ -73,58 +73,6 @@
 
 \begin{document}
 
-%% ------------------------------------------------------------------------ %%
-%  Title
-%
-% (A title should be specific, informative, and brief. Use
-% abbreviations only if they are defined in the abstract. Titles that
-% start with general keywords then specific terms are optimized in
-% searches)
-%
-%% ------------------------------------------------------------------------ %%
-
-
-
-%\title{Differences in algorithmic detection of basin-scale rain-on-snow flood events across gridded data products}
-
-%% ------------------------------------------------------------------------ %%
-%
-%  AUTHORS AND AFFILIATIONS!
-%
-%% ------------------------------------------------------------------------ %%
-
-% Authors are individuals who have significantly contributed to the
-% research and preparation of the article. Group authors are allowed, if
-% each author in the group is separately identified in an appendix.)
-
-% List authors by first name or initial followed by last name and
-% separated by commas. Use \affil{} to number affiliations, and
-% \thanks{} for author notes.
-% Additional author notes should be indicated with \thanks{} (for
-% example, for current addresses).
-
-% Example: \authors{A. B. Author\affil{1}\thanks{Current address, Antartica}, B. C. Author\affil{2,3}, and D. E.
-% Author\affil{3,4}\thanks{Also funded by Monsanto.}}
-
-%\authors{Colin M. Zarzycki\affil{1}, Benjamin D. Ascher\affil{1}\thanks{now at Colorado State University}, Alan M. Rhoades\affil{2}, and Rachel R. McCrary\affil{3}}
-
-%\affiliation{1}{Department of Meteorology and Atmospheric Science, The Pennsylvania State University, University Park, PA, USA}
-%\affiliation{2}{Climate and Ecosystem Sciences Division, Lawrence Berkeley National Laboratory, Berkeley, CA, USA}
-%\affiliation{3}{National Center for Atmospheric Research, Boulder, CO, USA}
-% \affiliation{4}{Fourth Affiliation}
-
-%% Corresponding Author:
-% Corresponding author mailing address and e-mail address:
-
-% (include name and email addresses of the corresponding author.  More
-% than one corresponding author is allowed in this LaTeX file and for
-% publication; but only one corresponding author is allowed in our
-% editorial system.)
-
-% Example: \correspondingauthor{First and Last Name}{email@address.edu}
-
-%\correspondingauthor{Colin M. Zarzycki}{cmz5202@psu.edu}
-
 \Author[1]{Colin M.}{Zarzycki}
 \Author[1,*]{Benjamin D.}{Ascher}
 \Author[2]{Alan M.}{Rhoades}
@@ -135,10 +83,10 @@
 \affil[3]{NSF, National Center for Atmospheric Research, Research Applications Laboratory, Boulder, CO, USA}
 \affil[*]{now at Colorado State University}
 
-\correspondence{Colin M. Zarzycki (cmz5202@psu.edu)}
+\correspondence{Colin M. Zarzycki (czarzycki@psu.edu)}
 
 \title{Algorithmically Detected Rain-on-Snow Flood Events in Different Climate Datasets: A Case Study of the Susquehanna River Basin}
-
+% Alternative titles
 %Using the Susquehanna River Basin as an example in how algorithmically detected rain-on-snow flood events differ in climate data
 %Algorithmically Detected Rain-on-Snow Flood Events in Different Climate Datasets: A Case Study of the Susquehanna River Basin
 %Exploring the Variability of Algorithmically Detected Rain-on-Snow Flood Events in Different Climate Datasets: A Case Study of the Susquehanna River Basin
@@ -153,107 +101,24 @@
 \accepted{}
 \published{}
 
-%% These dates will be inserted by Copernicus Publications during the typesetting process.
-
-
 \firstpage{1}
 
 \maketitle
-
-
-
-
-%  List up to three key points (at least one is required)
-%  Key Points summarize the main points and conclusions of the article
-%  Each must be 100 characters or less with no special characters or punctuation and must be complete sentences
-
-% Example:
-% \begin{keypoints}
-% \item	List up to three key points (at least one is required)
-% \item	Key Points summarize the main points and conclusions of the article
-% \item	Each must be 100 characters or less with no special characters or punctuation and must be complete sentences
-% \end{keypoints}
-
-% \begin{keypoints}
-% \item Rain-on-snow event detection algorithms can objectively isolate historical extremes in gridded climate data products at the basin-scale.
-% \item Large discrepancies in both mean climatology and event statistics exist in historical data products representing the same time period.
-% \item Finer temporal data and more frequent atmosphere-land surface coupling increase the number of flagged events.
-% \end{keypoints}
-
-%% ------------------------------------------------------------------------ %%
-%
-%  ABSTRACT and PLAIN LANGUAGE SUMMARY
-%
-% A good Abstract will begin with a short description of the problem
-% being addressed, briefly describe the new data or analyses, then
-% briefly states the main conclusion(s) and how they are supported and
-% uncertainties.
-
-% The Plain Language Summary should be written for a broad audience,
-% including journalists and the science-interested public, that will not have
-% a background in your field.
-%
-% A Plain Language Summary is required in GRL, JGR: Planets, JGR: Biogeosciences,
-% JGR: Oceans, G-Cubed, Reviews of Geophysics, and JAMES.
-% see http://sharingscience.agu.org/creating-plain-language-summary/)
-%
-%% ------------------------------------------------------------------------ %%
-
-%% \begin{abstract} starts the second page
-
-% CMZ, assuming 5 figures/tables, we have 3500 to work with!
-
-% The formula for PU = number of words/500 + number of figures + number of tables. Articles exceeding a certain amount of PUs incur excess page fees.
-%
-%Word count includes abstract, acknowledgements, text (and in-text citations), figure captions, table captions, and appendices. Equations count as one word no matter the size. Equations are not copyedited.
-%
-%Word count excludes title, author list and affiliations, key words, key points, plain language summary, table text, open research section, references, and supporting information. Supporting information is not copyedited.
 
 \begin{abstract}
 Rain-on-snow (RoS) events in regions of ephemeral snowpack -- such as the northeastern United States -- can be key drivers of cool-season flooding. We describe an automated algorithm for detecting basin-scale RoS events in gridded climate data by generating an area-averaged time-series and then searching for periods of concurrent precipitation, surface runoff, and snowmelt exceeding pre-defined thresholds. When evaluated using historical data over the Susquehanna River Basin (SRB), the technique credibly finds RoS events in published literature and flags events that are followed by anomalously high streamflow as measured by gage data along the river. When comparing four different datasets representing the same 21-year period, we find large differences in RoS event magnitude and frequency, primarily driven by differences in estimated surface runoff and snowmelt. Using dataset-specific thresholds improves agreement between datasets but does not account for all discrepancies. We show that factors such as meteorological forcing and coupling frequency as well as choice of land surface model play roles in how data products capture these compound extremes and suggest care is to be taken when climate datasets are used by stakeholders for operational decision-making.
 \end{abstract}
 
 % \section*{Plain Language Summary}
-% {\color{blue} Colin will write something here when submitting, not included in word count!}
+% Rain-on-snow events happen when rain falls on existing snowpack, leading to rapid snowmelt and potential flooding during the cool season of the northeastern United States. We developed a new method to identify these events using climate data without the need for classification by hand, allowing us to calculate statistics regarding rain-on-snow occurrence. By analyzing historical data over the Susquehanna River Basin, this technique successfully identified known rain-on-snow events that led to increases in river flow and associated flooding. We compared four different historical datasets. Even though all datasets represent the same period, we found variations in the frequency and severity of how rain-on-snow events are captured due to differences in how developers apply weather conditions to determine snowmelt and runoff. Our findings underscore the importance of selecting appropriate climate data for studying such events. This is crucial for effective flood management and decision-making, ultimately aiding in the development of better tools for anticipating and handling the risks associated with compound extremes.
 
-%%% STUFF TO ADD
-% Comment about how RoS is a compound extreme + cite Kai's paper
-% Add what variables in E3SM were nudged + provide namelists in final repo.
-
-%% ------------------------------------------------------------------------ %%
-%
-%  TEXT
-%
-%% ------------------------------------------------------------------------ %%
-
-%%% Suggested section heads:
-% \section{Introduction}
-%
-% The main text should start with an introduction. Except for short
-% manuscripts (such as comments and replies), the text should be divided
-% into sections, each with its own heading.
-
-% Headings should be sentence fragments and do not begin with a
-% lowercase letter or number. Examples of good headings are:
-
-% \section{Materials and Methods}
-% Here is text on Materials and Methods.
-%
-% \subsection{A descriptive heading about methods}
-% More about Methods.
-%
-% \section{Data} (Or section title might be a descriptive heading about data)
-%
-% \section{Results} (Or section title might be a descriptive heading about the
-% results)
-%
-% \section{Conclusions}
-
+%% Sub 500 characters
+%We developed an automated workflow to detect rain-on-snow events, which cause flooding in the northeastern U.S., in climate data. Analyzing the Susquehanna River Basin, this technique identified known events affecting river flow. Comparing four gridded datasets revealed variations in event frequency and severity, driven by different snowmelt and runoff estimates. This highlights the need for accurate climate data in flood management and risk prediction for these compound extremes.
 
 \introduction
 
 Rain-on-snow (RoS) events have been increasingly studied over the past few decades, yet such research is overwhelmingly focused on mountainous regions with well-defined seasonal snowpacks \citep{singh1997hydrological,mccabe2007rain,wayand2015modeling,sterle2019hydroclimate,musselman2018projected,poschlod2020climate,Hatchett2021,siirila2021a,heggli2022toward,yu2022diverse,brandt2022a,maina2023diverging,haleakala2023watershed}.
-Correspondingly, there has been less focus in areas with more ephemeral snow cover, such as the northeastern United States (US), even though RoS events, a flavor of compound extreme, produce many cases of `slow-rise' flooding -- floods generally occurring more than six hours after the onset of the meteorological driver \citep{dougherty2021high}.
+Correspondingly, there has been less focus in areas with more ephemeral snow cover, such as the northeastern United States (US), even though RoS events, a flavor of compound extreme \citep{aghakouchak2020climate}, produce many cases of `slow-rise' flooding -- floods generally occurring more than six hours after the onset of the meteorological driver \citep{dougherty2021high}.
 Climatologically, RoS events in the northeastern US peak in late winter and spring \citep{ashley2008flood,villarini2010flood,dougherty2019climatology,wachowicz2020rain} and are key drivers of flooding in New England and the Atlantic side of Canada \citep{collins2014annual}.
 Synoptic case study analyses of recent RoS events in the mid-Atlantic highlight inland-running extratropical cyclones that advect warm, moist air into the region as key dynamical drivers \citep{grote2021synoptic,suriano2023atmospheric}.
 Rapid snow ablation in ephemeral snow regions has been shown to have a strong correlation with increases in basin streamflow in the days following snowmelt \citep{suriano2020discharge,suriano2023atmospheric}.
@@ -868,7 +733,7 @@ While post-processing adjustments to the mean climatology may be desirable, thes
 
 
 \codedataavailability{
-L15 data was downloaded from the NOAA Administration Physical Science Laboratory, available at \url{https://psl.noaa.gov/data/gridded/data.livneh.html}. NLDAS-VIC4.0.5 data was downloaded from the NOAA National Centers for Environmental Prediction, available at \url{ftp://ldas.ncep.noaa.gov/nldas2/retrospective/vic4.0.5}. JRA-55 data was downloaded from the Research Data Archive at the National Center for Atmospheric Research, Computational and Information Systems Laboratory, available at \url{https://doi.org/10.5065/D6HH6H41}. The version of E3SM run here was v2.0.0-alpha.2-1816-gf9cbe57a2 and is available at https://github.com/E3SM-Project/E3SM. ERA5 data used to nudge the E3SM solution was downloaded from the Copernicus Climate Data Store (CDS), available at \url{https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5}. Station data for Harrisburg, PA was acquired from the Iowa Environmental Mesonet at \url{https://mesonet.agron.iastate.edu/}. The SRB is defined using a shapefile provided by the SRB Commission (\url{https://www.srbc.net/portals/susquehanna-atlas/data-and-maps/subbasins/index.html}). All processed data, figures, and scripts used to generate the results contained in this manuscript (along with README documentation) are archived at Zenodo and can be accessed at \url{xxxxxx}.
+L15 data was downloaded from the NOAA Administration Physical Science Laboratory, available at \url{https://psl.noaa.gov/data/gridded/data.livneh.html}. NLDAS-VIC4.0.5 data was downloaded from the NOAA National Centers for Environmental Prediction, available at \url{ftp://ldas.ncep.noaa.gov/nldas2/retrospective/vic4.0.5}. JRA-55 data was downloaded from the Research Data Archive at the National Center for Atmospheric Research, Computational and Information Systems Laboratory, available at \url{https://doi.org/10.5065/D6HH6H41}. The version of E3SM run here was v2.0.0-alpha.2-1816-gf9cbe57a2 and is available at https://github.com/E3SM-Project/E3SM. ERA5 data used to nudge the E3SM solution was downloaded from the Copernicus Climate Data Store (CDS), available at \url{https://www.ecmwf.int/en/forecasts/datasets/reanalysis-datasets/era5}. Station data for Harrisburg, PA was acquired from the Iowa Environmental Mesonet at \url{https://mesonet.agron.iastate.edu/}. The SRB is defined using a shapefile provided by the SRB Commission (\url{https://www.srbc.net/portals/susquehanna-atlas/data-and-maps/subbasins/index.html}). All processed data, figures, and scripts used to generate the results contained in this manuscript (along with README documentation) are archived at Zenodo and can be accessed at \url{https://doi.org/10.5281/zenodo.10412332}.
 }
 
 
