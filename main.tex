@@ -210,7 +210,7 @@
 %Word count excludes title, author list and affiliations, key words, key points, plain language summary, table text, open research section, references, and supporting information. Supporting information is not copyedited.
 
 \begin{abstract}
-Rain-on-snow (RoS) events in regions of ephemeral snowpack -- such as the northeastern United States -- can be key drivers of cool-season flooding. We describe an automated algorithm for detecting rain-on-snow events in gridded climate data by generating an area-averaged time-series and then searching for periods of concurrent precipitation, surface runoff, and snowmelt exceeding pre-defined thresholds. When evaluated using historical data over the Susquehanna River Basin (SRB), the technique credibly finds RoS events in published literature and flags events that are followed by anomalously high streamflow as measured by gage data along the river. When comparing four different datasets representing the same 21-year period, we find large differences in RoS event magnitude and frequency, primarily driven by differences in estimated surface runoff and snowmelt. Using dataset-specific thresholds improves agreement between datasets but does not account for all discrepancies. We show that factors such as model coupling frequency, choice of land surface model, and meteorological forcing all play roles in how data products capture these compound extremes and suggest care is to be taken when climate datasets are used by stakeholders for operational decision-making.
+Rain-on-snow (RoS) events in regions of ephemeral snowpack -- such as the northeastern United States -- can be key drivers of cool-season flooding. We describe an automated algorithm for detecting basin-scale RoS events in gridded climate data by generating an area-averaged time-series and then searching for periods of concurrent precipitation, surface runoff, and snowmelt exceeding pre-defined thresholds. When evaluated using historical data over the Susquehanna River Basin (SRB), the technique credibly finds RoS events in published literature and flags events that are followed by anomalously high streamflow as measured by gage data along the river. When comparing four different datasets representing the same 21-year period, we find large differences in RoS event magnitude and frequency, primarily driven by differences in estimated surface runoff and snowmelt. Using dataset-specific thresholds improves agreement between datasets but does not account for all discrepancies. We show that factors such as meteorological forcing and coupling frequency as well as choice of land surface model play roles in how data products capture these compound extremes and suggest care is to be taken when climate datasets are used by stakeholders for operational decision-making.
 \end{abstract}
 
 % \section*{Plain Language Summary}
@@ -252,8 +252,8 @@ Rain-on-snow (RoS) events in regions of ephemeral snowpack -- such as the northe
 
 \introduction
 
-Rain-on-snow (RoS) events have been increasingly studied over the past few decades, yet such research is overwhelmingly focused on mountainous regions with seasonal snowpacks \citep{singh1997hydrological,mccabe2007rain,wayand2015modeling,sterle2019hydroclimate,musselman2018projected,poschlod2020climate,Hatchett2021,siirila2021a,heggli2022toward,yu2022diverse,brandt2022a,maina2023diverging,haleakala2023watershed}.
-Correspondingly, there has been less focus in areas with more ephemeral snow cover, such as the northeastern United States (US), even though these compound events produce many cases of `slow-rise' flooding -- floods generally occurring more than six hours after the onset of the meteorological driver \citep{dougherty2021high}.
+Rain-on-snow (RoS) events have been increasingly studied over the past few decades, yet such research is overwhelmingly focused on mountainous regions with well-defined seasonal snowpacks \citep{singh1997hydrological,mccabe2007rain,wayand2015modeling,sterle2019hydroclimate,musselman2018projected,poschlod2020climate,Hatchett2021,siirila2021a,heggli2022toward,yu2022diverse,brandt2022a,maina2023diverging,haleakala2023watershed}.
+Correspondingly, there has been less focus in areas with more ephemeral snow cover, such as the northeastern United States (US), even though RoS events, a flavor of compound extreme, produce many cases of `slow-rise' flooding -- floods generally occurring more than six hours after the onset of the meteorological driver \citep{dougherty2021high}.
 Climatologically, RoS events in the northeastern US peak in late winter and spring \citep{ashley2008flood,villarini2010flood,dougherty2019climatology,wachowicz2020rain} and are key drivers of flooding in New England and the Atlantic side of Canada \citep{collins2014annual}.
 Synoptic case study analyses of recent RoS events in the mid-Atlantic highlight inland-running extratropical cyclones that advect warm, moist air into the region as key dynamical drivers \citep{grote2021synoptic,suriano2023atmospheric}.
 Rapid snow ablation in ephemeral snow regions has been shown to have a strong correlation with increases in basin streamflow in the days following snowmelt \citep{suriano2020discharge,suriano2023atmospheric}.
@@ -447,7 +447,7 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_AB}.pdf}
 \put (11,72) {\contour{white}{\large b.}}
 \end{overpic}
-\\
+\vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_AB}.pdf}
 \put (11,72) {\contour{white}{\large c.}}
 \end{overpic}
@@ -478,7 +478,7 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_95}.pdf}
 \put (11,72) {\contour{white}{\large b.}}
 \end{overpic}
-\\
+\vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_95}.pdf}
 \put (11,72) {\contour{white}{\large c.}}
 \end{overpic}
@@ -503,7 +503,7 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf}
 \put (11.5,40) {\contour{white}{\large b.}}
 \end{overpic}
-\\
+\vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf}
 \put (11.5,40) {\contour{white}{\large c.}}
 \end{overpic}
@@ -525,7 +525,7 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf}
 \put (12,63) {\contour{white}{\Large b.}}
 \end{overpic}
-\\
+\vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf}
 \put (12,63) {\contour{white}{\Large c.}}
 \end{overpic}
@@ -607,7 +607,7 @@ This is likely due to daily differences in the timing of storms, the amount of w
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf}
 \put (11,39.5) {\contour{white}{\large b.}}
 \end{overpic}
-\\
+\vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf}
 \put (11,39.5) {\contour{white}{\large c.}}
 \end{overpic}
