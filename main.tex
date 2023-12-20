@@ -35,6 +35,7 @@
 \usepackage[percent]{overpic}
 \usepackage{contour}
 
+\contourlength{.1em}% default is 0.03em
 
 %\usepackage{url} %this package should fix any errors with URLs in refs.
 %\usepackage{lineno}
@@ -437,8 +438,6 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 %\label{fig:histograms2}
 %\end{figure}
 
-\contourlength{.08em}% default is 0.03em
-
 \begin{figure}
 \begin{tabular}{cc}
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/events_AB}.pdf}
@@ -498,19 +497,19 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 \begin{figure}
 \begin{tabular}{cc}
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf}
-\put (12,38.5) {\contour{white}{\large a.}}
+\put (11.5,40) {\contour{white}{\large a.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf}
-\put (12,38.5) {\contour{white}{\large b.}}
+\put (11.5,40) {\contour{white}{\large b.}}
 \end{overpic}
 \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf}
-\put (12,38.5) {\contour{white}{\large c.}}
+\put (11.5,40) {\contour{white}{\large c.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
-\put (12,38.5) {\contour{white}{\large d.}}
+\put (11.5,40) {\contour{white}{\large d.}}
 \end{overpic}
 \end{tabular}
 \caption{Time series of daily precipitation (PRECIP; green), surface runoff (ROF; orange), and SWE loss (dSWE; pink) during WY95 for each of the four products. Vertical purple shading denotes periods flagged as a rain-on-snow event. At the top of each time series are colored bars that denote extreme values (greater than the 75th percentile) of observed USGS streamflow at Harrisburg, Pennsylvania, with very dark hues representing 99th percentile values over the 1980-2005 period.}
@@ -602,19 +601,19 @@ This is likely due to daily differences in the timing of storms, the amount of w
 \begin{figure}
 \begin{tabular}{cc}
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf}
-\put (11,38) {\contour{white}{\large a.}}
+\put (11,39.5) {\contour{white}{\large a.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf}
-\put (11,38) {\contour{white}{\large b.}}
+\put (11,39.5) {\contour{white}{\large b.}}
 \end{overpic}
 \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf}
-\put (11,38) {\contour{white}{\large c.}}
+\put (11,39.5) {\contour{white}{\large c.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
-\put (11,38) {\contour{white}{\large d.}}
+\put (11,39.5) {\contour{white}{\large d.}}
 \end{overpic}
 \end{tabular}
 \caption{Daily SWE timeseries averaged over the SRB during WY95 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
@@ -642,14 +641,19 @@ Also included is the temperature trace observed at Harrisburg (thin gold line) a
 %http://livnehpublicstorage.colorado.edu:81/Livneh.2013.CONUS.Dataset/
 
 \begin{figure}
-\noindent\includegraphics[width=0.75\textwidth]{figs/cropped/precip_vs_t_1996.pdf}
+\begin{overpic}[width=0.8\textwidth]{figs/cropped/precip_vs_t_1996.pdf}
+\put (7,65) {\contour{white}{\Large a.}}
+\put (48.5,65) {\contour{white}{\Large b.}}
+\put (7,34.25) {\contour{white}{\Large c.}}
+\put (48.5,34.25) {\contour{white}{\Large d.}}
+\end{overpic}
 \caption{Evolution of reference height surface air temperature, relative humidity, and precipitation during the January 1996 SRB RoS flood event across data products. Data is taken from the grid cell nearest to Harrisburg, Pennsylvania. The left axis corresponds to the precipitation rate (shown in bars from the bottom) reported by the product. Green bars indicate rainfall (precipitation occurring when $T_s > 0$\degree{}C) and cyan bars indicate snowfall (precipitation occurring when $T_s <= 0$\degree{}C). The right axes show reference height surface air temperature as denoted by the solid red line, and relative humidity as denoted by the purple dashed line. A thick black horizontal line indicates 0\degree{}C air temperature (273.15 K). The thin gold line on each panel represents the observed temperature trace at Harrisburg over the period.}
 \label{fig:1996eventtrace}
 \end{figure}
 
 None of the four products precisely match the observed temperature, although we acknowledge that this is, at least, partly due to the spatial resolution of the data.
-While the timing of the temperature increase associated with the warm air advection component of the event is well matched in E3SM and NLDAS, both products have a slight cool bias.
-The overall temperature maximum is better matched by JRA, although the peak occurs approximately 6 hours earlier than in observations. An opposite shift is seen in L15 data, with the observed temperature peak leading L15's temperature peak by approximately 6 hours.
+While the timing of the temperature increase associated with the warm air advection component of the event is well matched in NLDAS (Fig. \ref{fig:allswewy95}b) and E3SM (Fig. \ref{fig:allswewy95}d), both products have a slight cool bias.
+The overall temperature maximum is better matched by JRA (Fig. \ref{fig:allswewy95}c), although the peak occurs approximately 6 hours earlier than in observations. An opposite shift is seen in L15 data, with the observed temperature peak leading L15's temperature peak by approximately 6 hours (Fig. \ref{fig:allswewy95}a).
 
 Across all four datasets, only L15 reports below-freezing temperatures between January 18th at 12Z and January 19th at 18Z.
 This occurs because L15 only leverages daily minimum and maximum observed temperatures to construct temperature fields.
