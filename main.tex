@@ -129,7 +129,7 @@ One river basin in the northeastern US that has historically dealt with RoS even
 The most consequential non-tropical-cyclone flood in recent SRB history was a RoS flood that occurred in January 1996, resulting in $\sim$\$1.5 billion in damages and 30 fatalities \citep{leathers1998severe}. Significant events such as this are frequently used by stakeholders as a point of reference for real-time forecasts and long-term planning \citep{george2019the}.
 Other evidence, such as the Great Flood of 1936 (another RoS event) and the fact that sediment records indicate prehistoric periods of high flood activity are associated with negative phases of the North Atlantic Oscillation (NAO) (which drive positive snowpack anomalies in the northeastern US, \citep{hartley1998synoptic}) underscore the importance of these events to regional hydrology \citep{toomey2019the}.
 
-While studying historical events is important for planning purposes, and historical reforecasts using imposed warming approaches can provide clues as to how similar events may unfold in the future (e.g., \citet{pettett2023the}), it is difficult for such approaches to provide risk quantification from a frequency-of-occurrence perspective. For these climatological evaluations, it is desirable to be able to identify such events in both observational datasets and model simulations, including future climate projections.
+While studying historical events is important for planning purposes, and counterfactual reforecasts using imposed warming approaches can provide clues as to how similar events may unfold in the future (e.g., \citet{pettett2023the}), it is difficult for such approaches to provide risk quantification from a frequency-of-occurrence perspective. For these climatological evaluations, it is desirable to be able to identify such events in both observational datasets and model simulations, including future climate projections.
 Unfortunately, assessing extreme, compound, and discrete events in climate data sets is a complex challenge, particularly because such datasets are not necessarily developed specifically for this purpose \citep{angelil2017an,parker2020model} and there is commonly a lack of observational reference datasets to quantify their fidelity.
 Gridded datasets (spatiotemporally continuous data provided on a regular latitude-longitude mesh) of the historical record are frequently used to assess hydrometeorological extremes in locations with poor or non-existent station observations and climate analyses requiring multiple complex variables in addition to evaluating model sensitivity and performance.
 Further, future changes in RoS event frequency and character due to climate change are projected via the use of free-running models, which operate on numerical grids and don't have an \textit{a priori} record to compare to, making the use of an automated heuristic a requirement.
@@ -168,38 +168,58 @@ E3SM is run with a spectral element dynamical core on an unstructured cubed-sphe
 \subsection{Defining basin-scale events}
 \label{subsec:algo}
 
-A schematic of the RoS detection algorithm is shown in Fig. \ref{fig:schematic}.
-To identify RoS events, three hydrometeorological variables are extracted over the SRB.
-These include precipitation (PRECIP), snow water equivalent (SWE), and surface water runoff (ROF).
+A schematic of the RoS detection algorithm described here is shown in Fig. \ref{fig:schematic}.
+To identify RoS events in the datasets, three hydrometeorological variables are used; precipitation (PRECIP, includes both rainfall and snowfall), surface water runoff (ROF), and snow water equivalent (SWE).
 The 24-hour change in SWE from the previous day (dSWE) is calculated via a simple backward difference.
 All data is standardized to daily average values (00Z to 00Z) by temporally averaging any sub-daily (e.g., hourly) data at each grid cell.
-Grid cells that have at least 50\% of their area enclosed by the boundary of the SRB are kept, while those exterior to the SRB are set to missing values (Fig. \ref{fig:schematic}a).
-The resulting domains for each product can be seen in Fig. \ref{fig:means}. A basin-wide time series is then constructed by spatially averaging fields for each day and smoothing the resulting time series using a moving average to reduce day-to-day noise.
+Grid cells that have at least 50\% of their area enclosed by the shapefile boundary of a river basin (here, the SRB) are kept, while those exterior to the basin are set to missing values (Fig. \ref{fig:schematic}a).
+The resulting SRB domains for each product can be seen in Fig. \ref{fig:means}.
+A basin-wide time series is then constructed by spatially averaging fields for each day and smoothing the resulting time series using a moving average to reduce day-to-day noise.
 We choose a 5-day window based on mid-latitude synoptic timescales \citep{holton2004introduction}, although other window durations did not materially impact these findings (not shown).
 
-This results in a one-dimensional time series with a single value for each calendar day that represents the SRB basin-averaged conditions for each data product.
-RoS days are defined by flagging periods of negative dSWE and positive ROF that both exceed specified thresholds ($t$).
+This results in a one-dimensional time series with a single value for each calendar day that represents the basin-averaged conditions for each data product.
+RoS days are then defined by flagging periods of positive ROF and negative dSWE (snow loss) that both exceed specified thresholds ($t$).
 We test two methods of thresholding; one uses fixed thresholds across all four datasets (FIXED) and the other defines dataset-specific thresholds by those exceeding 95\% of all daily values (RELATIVE).
-For FIXED, we require an average dSWE of -1.4 mm/day ($t_{\textrm{dSWE}}$) and ROF of 1.4 mm/day ($t_{\textrm{ROF}}$) averaged across the SRB based on a manual sensitivity analysis.
-Thresholds in the RELATIVE configuration are calculated independently for each dataset by setting the threshold to the 95\% value of its own 1985-2005 time series (Fig. \ref{fig:schematic}b).
-Contiguous days are considered to be part of a single `event' such that discrete events can last for different durations.
-To enforce a criterion that precipitation occurs during at least some portion of the event, we require an average PRECIP of 2 mm/day ($t_{\textrm{PRECIP}}$), which is kept the same in both the FIXED and RELATIVE configurations. We note that our findings are actually largely insensitive to the magnitude of the PRECIP threshold (or even its inclusion), implying the vast majority of events with high dSWE and ROF are also associated with non-zero PRECIP.
+For FIXED, we require an average ROF of 1.4 mm/day ($t_{\textrm{ROF}}$) and dSWE of -1.4 mm/day ($t_{\textrm{dSWE}}$) averaged across the basin based on a manual sensitivity analysis.
+Thresholds in the RELATIVE configuration are calculated independently for each product by computing the 95\% percentile value for each variable in the unsmoothed daily 1985-2005 time series (Fig. \ref{fig:schematic}b).
+This results in an array containing a binary value for each day defining whether or not it is a `RoS day.'
+Contiguous RoS days are considered to be part of a single `RoS event' such that discrete events can last for different durations.
+
+To enforce a criterion that precipitation occurs during at least some portion of the event, we require an average PRECIP of 2 mm/day ($t_{\textrm{PRECIP}}$), which is kept the same in both the FIXED and RELATIVE configurations.
+We note that our findings are actually largely insensitive to the magnitude of the PRECIP threshold (or even its inclusion), implying the vast majority of events with high dSWE and ROF are also associated with non-zero PRECIP.
 This supports the notion that similar synoptic meteorological patterns \citep{grote2021synoptic} and additional liquid input to the surface (i.e., runoff being a combination of snowmelt and water flux from the atmosphere) lead to the majority of RoS floods being associated with, at least, some precipitation versus precipitation alone being a primary driver of such events.
 It also concurs with \citet{suriano2023atmospheric}, who found that, while RoS days contributed disproportionately to extreme snow ablation events, snowmelt also occurred in a myriad of non-precipitating patterns, including high-pressure overhead and under northwesterly/westerly large-scale flow.
 We argue this also corroborates the finding that actual heat transfer between the liquid rain and the surface of the snowpack is rather small and explains only a small fraction of the observed snowmelt \citep{moore1984controls}.
-An sample RoS detection from the smoothed basin-averaged quanties is shown in Fig. \ref{fig:schematic}c. The time series of ROF, dSWE, and PRECIP are shown from top-to-bottom in dark blue, red, and green respectively (the thinner line represents the raw time series). The various thresholds for the quantities are shown as dashed horizontal lines. The area where the metric exceeds the relevant $t$ is shaded for each time series. The vertical black lines denote the start and end of the event, defined by the first and last times when all three quantities exceed their defined threshold $t$. Gray shading represents contigous days where all three criteria are satisfied, thus defining a RoS event.
+
+A sample RoS event detection is shown in Fig. \ref{fig:schematic}c.
+The smoothed basin-averaged daily time series of PRECIP, ROF, and dSWE are shown from top-to-bottom in dark green, blue, and red respectively (the thinner line represents the raw, unsmoothed time series).
+The various thresholds ($t_{\textrm{PRECIP}}$, $t_{\textrm{ROF}}$, and $t_{\textrm{dSWE}}$) are shown as dashed horizontal lines. The area where the metric exceeds the relevant $t$ (i.e., days that the variable's RoS criterion is satisfied) is shaded for each time series.
+The vertical black lines denote the start and end of the event, defined by the first and last times when all three quantities exceed their defined threshold $t$.
+Gray shading represents contiguous days where all three criteria are satisfied, thus defining a RoS event. Here, an event from January 17th to January 25th, 1996 was added to the record.
 
 \begin{figure}
 \noindent\includegraphics[width=0.65\textwidth]{figs/cropped/schematic.pdf}
-\caption{Schematic demonstrating how RoS events are defined in this work. Gridded daily-average data is first masked to only retain data within a defined shapefile (here the SRB) and then area-averaged to produce a single value on that day for the area (a.). Exceedance thresholds $t$ are optionally computed from these daily values by using a specified percentile of the distribution of the entire dataset (b.). Finally, RoS events are defined as contiguous days where the basin-averaged time series of ROF, dSWE, and PRECIP all exceed their thresholds $t_{\textrm{ROF}}$, $t_{\textrm{dSWE}}$, and $t_{\textrm{PRECIP}}$, respectively (c.). In the bottom plots, the darker lines represents the smoothed timeseries while the thinner lines denote the raw daily data -- shaded areas indicate periods when the given time series is above the relevant threshold $t$ (denoted as a horizontal dashed line).}
+\caption{Schematic demonstrating how RoS events are defined in this work. (a.) Gridded daily-average data is first masked to only retain data within a defined shapefile (here the SRB) and then area-averaged to produce a single value on that day for the area. (b.) Exceedance thresholds $t$ are (optionally, in the RELATIVE framework) computed from these daily values by using a specified percentile (e.g., 95\%) of the distribution of the entire dataset. (c.) Finally, RoS events are defined as contiguous days where the basin-averaged time series of ROF, dSWE, and PRECIP all exceed their thresholds $t_{\textrm{ROF}}$, $t_{\textrm{dSWE}}$, and $t_{\textrm{PRECIP}}$, respectively. In the bottom plots, the darker lines represent the smoothed timeseries while the thinner lines denote the raw daily data. Shaded areas indicate periods when the given variable's time series is above its relevant threshold $t$ (denoted as a horizontal dashed line).}
 \label{fig:schematic}
 \end{figure}
 
-For context, our definition here of RoS is somewhat arbitrary. Most studies enforce some fixed combination of precipitation and snowpack threshold. \citet{ye2008winter} classified events as liquid precipitation falling onto at least 10 mm of existing snowpack in a gridbox. \citet{musselman2018projected} define `RoS days' where at least 10 mm of precipitation falls on at least 10 mm of snowpack in a given day. This technique was adopted by \citet{lopez2021changes} and \citet{maina2023diverging}. A similar strategy, but applying higher thresholds (20 mm precipitation, 250 mm snowpack), was used by \citet{wurzer2016influence}. Likewise, \citet{hotovy2023changes} required 10 mm of existing SWE and greater than 0\degree{}C surface temperatures to enforce collocated daily precipitation (of at least 5 mm) to fall in liquid form. Instead of a SWE metric, others have applied snow cover fraction or some other snow/no-snow classification in addition to a precipitation threshold \citep{mazurkiewicz2008assessing,pradhanang2013rain,cohen2015trends}. Others include some measure of snowmelt, such as \citet{freudiger2014large} and \citet{li2019the} who required 3 mm of rainfall, 10 mm SWE, and no larger than a 4:1 ratio between rainfall and snowmelt in order to eliminate rain-only events (\citet{musselman2018projected} also includes the latter requirement). \citet{suriano2022north} similarly required a 10 mm daily snow depth decrease that occurred in combination with above-freezing temperatures and non-zero precipitation. However, relative strategies have also been proposed, such as the 98\% threshold used for covarying extremes in the compound event analysis of \citet{poschlod2020climate}. Other studies simply require the joint occurrence of precipitation and snowmelt in a given period \citep{mccabe2007rain,surfleet2013variability,collins2014annual,guan2016hydrometeorological,jeong2018rain}. \citet{wachowicz2020rain} used the same gridded data and explored four different definitions derived from some of the above and found high-level agreement.
+For context, our definition here of RoS is somewhat arbitrary. Most studies enforce some fixed combination of precipitation and snowpack threshold.
+\citet{ye2008winter} classified events as liquid precipitation falling onto at least 10 mm of existing snowpack in a gridbox.
+\citet{musselman2018projected} define `RoS days' where at least 10 mm of precipitation falls on at least 10 mm of snowpack in a given day.
+This technique was adopted by \citet{lopez2021changes} and \citet{maina2023diverging}.
+A similar strategy, but applying higher thresholds (20 mm precipitation, 250 mm snowpack), was used by \citet{wurzer2016influence}.
+Likewise, \citet{hotovy2023changes} required 10 mm of existing SWE and greater than 0\degree{}C surface temperatures to enforce collocated daily precipitation (of at least 5 mm) to fall in liquid form.
+Instead of a SWE metric, others have applied snow cover fraction or some other snow/no-snow classification in addition to a precipitation threshold \citep{mazurkiewicz2008assessing,pradhanang2013rain,cohen2015trends}.
+Others include some measure of snowmelt, such as \citet{freudiger2014large} and \citet{li2019the} who required 3 mm of rainfall, 10 mm SWE, and no larger than a 4:1 ratio between rainfall and snowmelt in order to eliminate rain-only events (\citet{musselman2018projected} also includes the latter requirement).
+\citet{suriano2022north} similarly required a 10 mm daily snow depth decrease that occurred in combination with above-freezing temperatures and non-zero precipitation.
+However, relative strategies have also been proposed, such as the 98\% threshold used for covarying extremes in the compound event analysis of \citet{poschlod2020climate}.
+Other studies simply require the joint occurrence of precipitation and snowmelt in a given period \citep{mccabe2007rain,surfleet2013variability,collins2014annual,guan2016hydrometeorological,jeong2018rain}.
+\citet{wachowicz2020rain} used the same gridded data and explored four different definitions derived from some of the above and found high-level agreement.
 
-This brief literature review is not meant to be considered exhaustive, but rather to highlight that both RoS evaluation techniques in this manuscript fall within the scope of existing strategies. It also emphasizes that extreme RoS events in mountainous regions with more seasonal snowpack or those using gridpoint values versus basin-integrated metrics may require different thresholds. With the caveat that much of the previously cited RoS work has focused on regions with less ephemeral snowpack (e.g., western U.S. mountains), the algorithm discussed here falls within the envelope of previously published results both from a heuristic perspective and also with respect to our defined thresholds.
+This brief literature review is not meant to be considered exhaustive, but rather to highlight that both RoS evaluation techniques in this manuscript fall within the scope of existing strategies. It also emphasizes that extreme RoS events in mountainous regions with more seasonal snowpack or those using gridpoint values versus basin-integrated metrics may require different thresholds. With the caveat that much of the previously cited RoS work has focused on regions with less ephemeral snowpack (e.g., western U.S. mountains), the algorithm discussed here falls within the envelope of previously published results both from a heuristic perspective and also with respect to our defined thresholds. We also note that our decision to use surface runoff in our definition is unique and implicitly includes the permeability of soil in our calculation. For example, the 1996 SRB event was exacerbated by first frozen, and then saturated soils, allowing for significant lateral movement of water across the surface \citep{yarnal1997the}. While the application of this threshold is intuitive, we acknowledge it does introduce the potential for land surface errors to be more apparent in RoS detection (e.g., biases in soil properties in conditions).
 
-Lastly, to show all datasets adequately represent the same period, Pearson correlations of basin-wide statistics (Table \ref{table:correlations}) were statistically significant with a two-sided $t$-test between all permutations of daily time series. This confirms that all datasets fundamentally represent the same meteorology and land surface evolution as processed here and can therefore be directly compared to one another.
+Lastly, to show all datasets adequately represent the same period, Pearson correlations of basin-wide statistics (Table \ref{table:correlations}) were statistically significant with a two-sided $t$-test between all permutations of daily time series.
+This confirms that all datasets fundamentally represent the same meteorology and land surface evolution as processed here and can therefore be directly compared to one another.
 
 \begin{table}[]
 \caption{Pearson correlations between data products for daily timeseries of precipitation (top), surface runoff (middle), and 24-hour change in snow water equivalent (bottom) over the study period. All values are correlated significantly at greater than the 99.9\% confidence level using a two-sided $t$-test, indicating that all timeseries represent the same historical period and include relevant day-to-day variations over the SRB.}
@@ -260,12 +280,22 @@ Interestingly, large differences don't necessarily appear when considering the m
 In fact, when a RoS event occurs, L15 has the largest PRECIP$_{\textrm{a}}$ and largest dSWE$_{\textrm{a}}$, although the smallest ROF$_{\textrm{a}}$.
 
 When using the RELATIVE thresholds, the event frequencies agree better, with only a factor of two difference between L15/NLDAS and JRA/E3SM.
-The number of events in L15 increases because the ROF threshold (95th percentile of daily values) is reduced from 1.4 to 0.6 mm/day.
-Similarly, the dSWE threshold magnitude is reduced from -1.4 mm/day to -0.8 mm/day in NLDAS.
+The number of events in L15 increases because the ROF threshold $t_{\textrm{ROF}}$ (95th percentile of daily values) is reduced from 1.4 to 0.6 mm/day.
+Similarly, the dSWE threshold $t_{\textrm{dSWE}}$ magnitude is reduced from -1.4 mm/day to -0.8 mm/day in NLDAS.
 Conversely, fewer events were classified in E3SM, due to increases in both the required ROF and dSWE thresholds applied to the daily climatology.
 However, even when accounting for the baseline climatological differences of the data products by thresholding on percentiles, rather than absolute magnitudes, differences still are evident in all metrics.
 
-We also perform one sensitivity analysis intended to include the requirement in \citet{freudiger2014large} and \citet{musselman2018projected} that the sum of rainfall and snowmelt contains at least 20\% snowmelt. This is added as an additional threshold $t_{\textrm{fSWE}}$ = 0.2 where fSWE (fraction of dSWE contribution to sum of dSWE melt and PRECIP) is computed as dSWE divided by the sum of dSWE and PRECIP smoothed time series (note, the sign of dSWE is inverted to be a positive contributer to liquid water on the surface). We refer to this simulation as RELATIVE\_F14 since it preserves the same thresholds in RELATIVE with this one additional exclusinoary check in order to remove high rainfall (but low snow loss) events. The number of events is the same for all datasets except NLDAS, which loses 7 events over the study period when enforcing $t_{\textrm{fSWE}}$ = 0.2. This can be explained by the results in Fig. \ref{fig:means} which show NLDAS producing a `wetter' precipitation climatology (Fig. \ref{fig:means}f) but less climatogical SWE (Fig. \ref{fig:means}j) and correspondingly less dSWE (Fig. \ref{fig:means}n). It therefore makes sense that enforcing a check that removes high PRECIP, low dSWE events would reduce events detected in NLDAS most strongly. While the other three products have the same number of events with or without the inclusion of $t_{\textrm{fSWE}}$ = 0.2, the duration is slightly shortened and mean event ROF is slightly reduced in all cases in RELATIVE\_F14, implying that a handful of high PRECIP but low dSWE (and high ROF) days at event onset or termination are lost. However, this reduction is small and therefore provides confidence that just including threshold checks for dSWE, ROF, and PRECIP is satisfactory to detect RoS events over the SRB in the absense of a more formal snow loss cutoff -- in the remainder of this paper we omit the use of $t_{\textrm{fSWE}}$ for simplicity. However, we acknowledge that the simulation of land surface processes in different datasets can play a key role in the sensitivity of results to this design choice, motivating further process-oriented evaluation of the joint occurance of rainfall and snowmelt in gridded climate data in the future.
+We also perform a sensitivity analysis intended to include the requirement in \citet{freudiger2014large} and \citet{musselman2018projected} that the sum of rainfall and snowmelt contains at least 20\% snowmelt.
+This is added as an additional threshold $t_{\textrm{fSWE}}$ = 0.2 where fSWE (fraction of dSWE contribution) is computed as dSWE divided by the sum of dSWE and PRECIP smoothed time series (note, the sign of dSWE is inverted to be a positive contributor to liquid water on the surface).
+We refer to this simulation as RELATIVE\_F14 since it preserves the same thresholds in RELATIVE with this one additional exclusionary check from \citet{freudiger2014large} in order to remove high rainfall (but low snow loss) events.
+The number of events is the same for all datasets except NLDAS, which loses 7 events over the study period when enforcing $t_{\textrm{fSWE}}$ = 0.2.
+This can be explained by the results in Fig. \ref{fig:means}. NLDAS produces a `wetter' precipitation climatology (Fig. \ref{fig:means}f) but less climatological SWE (Fig. \ref{fig:means}j) and, correspondingly, less dSWE (Fig. \ref{fig:means}n).
+Therefore, enforcing a check that removes high PRECIP, low dSWE events would reduce events detected in NLDAS most strongly relative to other datasets.
+While the other three products have the same number of events with or without the inclusion of $t_{\textrm{fSWE}}$ = 0.2, the mean duration is slightly shortened, and mean event ROF is somewhat reduced using RELATIVE\_F14, implying that a handful of high PRECIP, low dSWE (and high ROF) days at event onset or termination are lost.
+However, this reduction is small and therefore provides confidence that just including threshold checks for dSWE, ROF, and PRECIP is satisfactory for detecting RoS events over the SRB without a more formal snow loss cutoff.
+In the remainder of this paper, we omit the use of $t_{\textrm{fSWE}}$ for simplicity.
+However, we want to emphasize that the simulation of land surface processes in different datasets can play a key role in precipitation/snowmelt partitioning, motivating further process-oriented evaluation of their joint occurence in gridded climate data in the future.
+A percentile-based threshold-only algorithm (such as RELATIVE) may particularly struggle in regions of climatologically low SWE and high PRECIP (which experiences primarily rain-induced flooding) or high SWE and low PRECIP (primarily melt-induced flooding).
 
 \begin{figure}
 \begin{tabular}{c}
@@ -279,39 +309,42 @@ We also perform one sensitivity analysis intended to include the requirement in 
 \end{figure}
 
 \begin{table}
-\caption{Statistics of RoS events over the SRB using FIXED thresholds (top) and RELATIVE thresholds (bottom). $t_{\textrm{dSWE}}$, $t_{\textrm{ROF}}$, and $t_{\textrm{PRECIP}}$ represent the thresholds used for snow water equivalent loss, surface runoff, and precipitation, respectively (mm/day). Events represent the number of RoS events flagged over the 1980-2005 period. Duration is the average number of consecutive days an RoS event lasts. dSWE$_{a}$, ROF$_{a}$, and PRECIP$_{a}$ represent the average snow loss, amount of runoff rate, and amount of precipitation rate (mm/day) per event by calculating the mean daily value for each individual event and then averaging those.}
+\caption{Statistics of RoS events over the SRB using FIXED thresholds (top) and RELATIVE thresholds (bottom). $t_{\textrm{PRECIP}}$, $t_{\textrm{ROF}}$, and $t_{\textrm{dSWE}}$ represent the thresholds used for precipitation, surface runoff, and snow water equivalent loss, respectively (mm/day). Events represent the number of RoS events flagged over the 1980-2005 period. Duration is the average number of consecutive days an RoS event lasts. PRECIP$_{a}$, ROF$_{a}$, and dSWE$_{a}$ represent the amount of precipitation rate, amount of runoff rate, and average snow loss (mm/day) per event by calculating the mean daily value for each individual event and then averaging those.}
 \begin{tabular}{lccccccccc}
-      &  $t_{\textrm{dSWE}}$ & $t_{\textrm{ROF}}$ & $t_{\textrm{PRECIP}}$ & $t_{\textrm{fSWE}}$ & Events & Duration & dSWE$_{a}$ & ROF$_{a}$ & PRECIP$_{a}$ \\
+      &  $t_{\textrm{PRECIP}}$ & $t_{\textrm{ROF}}$ & $t_{\textrm{dSWE}}$ & $t_{\textrm{fSWE}}$ & Events & Duration & PRECIP$_{a}$ & ROF$_{a}$ & dSWE$_{a}$ \\
       &  \textit{mm day$^{-1}$} & \textit{mm day$^{-1}$} & \textit{mm day$^{-1}$} & \textit{\%} & \textit{\#} & \textit{days} & \textit{mm day$^{-1}$} & \textit{mm day$^{-1}$} & \textit{mm day$^{-1}$} \\ \hline
 FIXED &         &         &         &        &     &              &              &                &                \\ \hline
-L15 & -1.4 & 1.4 & 2.0 & - & 6 & 3.2 & -5.3 & 1.5 & 9.5 \\
-NLDAS & -1.4 & 1.4 & 2.0 & - & 16 & 2.9 & -5.2 & 2.1 & 6.3 \\
-JRA & -1.4 & 1.4 & 2.0 & - & 48 & 3.5 & -4.4 & 2.6 & 5.3 \\
-E3SM & -1.4 & 1.4 & 2.0 & - & 58 & 4.1 & -5.2 & 2.4 & 6.5 \\ \hline
+L15 & 2.0 & 1.4 & -1.4 & - & 6 & 3.2 & 9.5 & 1.5 & -5.3 \\
+NLDAS & 2.0 & 1.4 & -1.4 & - & 16 & 2.9 & 6.3 & 2.1 & -5.2 \\
+JRA & 2.0 & 1.4 & -1.4 & - & 48 & 3.5 & 5.3 & 2.6 & -4.4 \\
+E3SM & 2.0 & 1.4 & -1.4 & - & 58 & 4.1 & 6.5 & 2.4 & -5.2 \\ \hline
 RELATIVE      &         &         &         &        &     &              &              &                &                \\ \hline
-L15 & -1.5 & 0.6 & 2.0 & - & 20 & 5.2 & -5.3 & 1.1 & 6.2 \\
-NLDAS & -0.8 & 1.4 & 2.0 & - & 20 & 2.8 & -4.2 & 2.1 & 7.2 \\
-JRA & -1.9 & 1.6 & 2.0 & - & 40 & 3.1 & -4.1 & 2.5 & 5.1 \\
-E3SM & -2.2 & 1.8 & 2.0 & - & 41 & 4.1 & -8.0 & 2.9 & 6.9 \\ \hline
+L15 & 2.0 & 0.6 & -1.5 & - & 20 & 5.2 & 6.2 & 1.1 & -5.3 \\
+NLDAS & 2.0 & 1.4 & -0.8 & - & 20 & 2.8 & 7.2 & 2.1 & -4.2 \\
+JRA & 2.0 & 1.6 & -1.9 & - & 40 & 3.1 & 5.1 & 2.5 & -4.1 \\
+E3SM & 2.0 & 1.8 & -2.2 & - & 41 & 4.1 & 6.9 & 2.9 & -8.0 \\ \hline
 RELATIVE\_F14      &         &         &         &        &     &              &              &                &                \\ \hline
-L15 & -1.5 & 0.6 & 2.0 & 20 & 20 & 4.9 & -5.3 & 1.0 & 6.0 \\
-NLDAS & -0.8 & 1.4 & 2.0 & 20 & 13 & 3.0 & -5.1 & 1.9 & 4.4 \\
-JRA & -1.9 & 1.6 & 2.0 & 20 & 40 & 3.0 & -4.2 & 2.4 & 5.3 \\
-E3SM & -2.2 & 1.8 & 2.0 & 20 & 41 & 4.0 & -7.8 & 2.8 & 6.8 \\   \hline
+L15 & 2.0 & 0.6 & -1.5 & 20 & 20 & 4.9 & 6.0 & 1.0 & -5.3 \\
+NLDAS & 2.0 & 1.4 & -0.8 & 20 & 13 & 3.0 & 4.4 & 1.9 & -5.1 \\
+JRA & 2.0 & 1.6 & -1.9 & 20 & 40 & 3.0 & 5.3 & 2.4 & -4.2 \\
+E3SM & 2.0 & 1.8 & -2.2 & 20 & 41 & 4.0 & 6.8 & 2.8 & -7.8 \\   \hline
 \end{tabular}
 \label{table:means}
 \end{table}
 
-The differences across gridded climate data products are also shown in Fig. \ref{fig:histograms2} (FIXED) and in Fig. \ref{fig:histograms} (RELATIVE). The sign of dSWE is flipped here for ease of visualization with the other metrics (i.e., positive dSWE in both figures denotes snow accumulation). We focus our discussion on the relative threshold results in Fig. \ref{fig:histograms} for brevity, although note that the distributions of event statistics (Fig. \ref{fig:histograms2}b-d and Fig. \ref{fig:histograms}b-d) are qualitatively similar between the two.
+The differences across gridded climate data products are also shown in Fig. \ref{fig:histograms2} (FIXED) and in Fig. \ref{fig:histograms} (RELATIVE).
+The sign of dSWE is flipped here for ease of visualization with the other metrics (i.e., positive dSWE in both figures denotes snow ablation).
+We focus our discussion on the relative threshold results in Fig. \ref{fig:histograms} for brevity, although note that the distributions of event statistics (Fig. \ref{fig:histograms2}b-d and Fig. \ref{fig:histograms}b-d) are qualitatively similar between the two.
 
-Figure \ref{fig:histograms}a shows the total number of RoS events flagged over the climatological period (fourth column of Table \ref{table:means}), while Fig. \ref{fig:histograms}b-d shows the frequency distribution for basin-averaged maximum rates of PRECIP, ROF, and dSWE at the event level. These are calculated by selecting the maximum daily value from the array of actual (i.e., unsmoothed) daily values during each RoS event.
+Figure \ref{fig:histograms}a shows the total number of RoS events flagged over the climatological period (fourth column of Table \ref{table:means}), while Fig. \ref{fig:histograms}b-d shows the frequency distribution for basin-averaged maximum rates of PRECIP, ROF, and dSWE at the event level.
+These are calculated by selecting the maximum daily value from the array of actual (i.e., unsmoothed) daily values during each RoS event.
 
 The maximum PRECIP associated with flagged RoS events is similar between the four datasets, with E3SM tending to have slightly more extreme PRECIP occurring over the SRB (in agreement with Fig. \ref{fig:means}).
 Much larger differences are seen in ROF and dSWE.
 In ROF, both the E3SM and JRA datasets produce larger event magnitudes of ROF, and subsequently have longer tails in their probability distributions, compared to the other two datasets.
 L15 produces RoS events with the least ROF (averaging approximately one-third of those found in either E3SM or JRA), with NLDAS in between the other three.
-The probability distribution functions of dSWE highlight an even more complex picture, with both NLDAS and L15 having narrower distributions with smaller magnitudes.
-Of note, JRA and E3SM have broader distributions (i.e., longer tails) but the JRA distribution is more skewed, with frequent low dSWE events whereas E3SM has a more uniform distribution of dSWE rates.
+The probability distribution functions of dSWE highlight an even more complex picture, with both NLDAS and L15 having narrower distributions with smaller magnitudes than E3SM.
+JRA and E3SM have broader distributions (i.e., longer tails) but the JRA distribution is more skewed, with frequent low dSWE events whereas E3SM has a more uniform distribution of dSWE rates.
 
 Summarizing, using either a relative or fixed threshold to identify RoS events, the fully-coupled ESMs (E3SM and JRA) produce more events than L15 and NLDAS.
 While daily PRECIP in each product differs somewhat, it should be noted that these differences are relatively small.
@@ -387,41 +420,41 @@ It is worth noting that L15 and NLDAS produce fewer RoS events regardless of whi
 \begin{figure}
 \begin{tabular}{cc}
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf}
-\put (11.5,40) {\contour{white}{\large a.}}
+\put (10.5,40) {\contour{white}{\large a.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf}
-\put (11.5,40) {\contour{white}{\large b.}}
+\put (10.5,40) {\contour{white}{\large b.}}
 \end{overpic}
 \vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf}
-\put (11.5,40) {\contour{white}{\large c.}}
+\put (10.5,40) {\contour{white}{\large c.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
-\put (11.5,40) {\contour{white}{\large d.}}
+\put (10.5,40) {\contour{white}{\large d.}}
 \end{overpic}
 \end{tabular}
-\caption{Time series of daily precipitation (PRECIP; green), surface runoff (ROF; orange), and SWE loss (dSWE; pink) during WY96 for each of the four products. Vertical purple shading denotes periods flagged as an RoS event. At the top of each time series are colored bars that denote extreme values (greater than the 75th percentile) of observed USGS streamflow at Harrisburg, Pennsylvania, with very dark hues representing 99th percentile values over the 1980-2005 period.}
+\caption{Time series of daily precipitation (PRECIP; green), surface runoff (ROF; orange), and SWE loss (dSWE; pink) during WY96 for each of the four products. Vertical purple shading denotes periods flagged as an RoS event. At the top of each time series are colored bars that denote extreme values (greater than the 90\% percentile) of observed USGS streamflow at Harrisburg, Pennsylvania (\#01570500), with black representing 99.9th percentile values over the 1980-2005 period.}
 \label{fig:yr-timeseries-comp}
 \end{figure}
 
 \begin{figure}
 \begin{tabular}{cc}
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf}
-\put (12,63) {\contour{white}{\Large a.}}
+\put (13,63) {\contour{white}{\Large a.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf}
-\put (12,63) {\contour{white}{\Large b.}}
+\put (13,63) {\contour{white}{\Large b.}}
 \end{overpic}
 \vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf}
-\put (12,63) {\contour{white}{\Large c.}}
+\put (13,63) {\contour{white}{\Large c.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
-\put (12,63) {\contour{white}{\Large d.}}
+\put (13,63) {\contour{white}{\Large d.}}
 \end{overpic}
 
 \end{tabular}
@@ -446,16 +479,16 @@ The same visualizations for other WYs are included in the data download associat
 Figure \ref{fig:yr-timeseries-comp} shows the SRB daily WY96 time series of basin-integrated PRECIP, ROF, and dSWE.
 Negative (positive) dSWE denotes snowmelt (accumulation).
 Vertical shading denotes RoS events that were flagged by the algorithm (using the RELATIVE thresholds).
-At the top of each panel is a stripe with four different shadings, representing days where streamflow exceeded the 75th, 90th, 95th, and 99th relative percentiles over the 1985-2005 period at the US Geological Survey (USGS) gage at Harrisburg, Pennsylvania (USGS \#01570500), with deepest blues representing highly anomalous flow conditions.
+At the top of each panel is a stripe with four different shadings, representing days where streamflow exceeded the 90th, 95th, 99th, and 99.9th relative percentiles over the 1985-2005 period at the US Geological Survey (USGS) gage at Harrisburg, Pennsylvania (USGS \#01570500), with deepest blues and black representing highly anomalous flow conditions.
 
 The January 17-18, 1996 event is readily apparent for three of the four data products (NLDAS, JRA, and E3SM).
-Observed streamflow spiked during and immediately after the RoS event as shown by the dark blue stripes at the top of each time series, indicating a lag between when the RoS event algorithm identifies changes in PRECIP, dSWE, and ROF and the observed daily streamflow gage observation at Harrisburg (namely, the 99th percentile streamflow exceedance).
+Observed streamflow spiked during and immediately after the RoS event as shown by the dark blue stripes at the top of each time series, indicating a lag between when the RoS event algorithm identifies changes in PRECIP, dSWE, and ROF and the observed daily streamflow gage observation at Harrisburg (namely, the 99.9th percentile streamflow exceedance).
 While this is operationally the largest RoS event observed over the period, there remain large discrepancies in the hydrometeorological conditions between the datasets.
 The dSWE signal is the largest in magnitude within JRA and E3SM compared to NLDAS.
 L15 shows a very minimal dSWE, to the point that $t_{\textrm{dSWE}}$ is not exceeded in the detection algorithm.
 PRECIP is more similar across the three datasets, implying that the reduced ROF in L15 is likely due to minimal snowmelt.
 
-All products also indicate a second, more moderate RoS event during the last third of February, although L15 and E3SM (JRA and E3SM) show larger dSWE (ROF) signals than the other two datasets.
+All products also indicate a second, more moderate RoS event during the last third of February, although L15 and E3SM (JRA) show larger dSWE (ROF) signals than the other datasets.
 The USGS gage streamflow also exceeded the 95th percentile for this RoS event.
 More moderate flooding also appeared to occur in March and April although the detection algorithm only flagged such events in L15 and E3SM.
 We also emphasize that all RoS events flagged by the detection algorithm resulted in well-above-average streamflow, highlighting the efficacy of the detection algorithm in capturing meaningful hydrometeorological extremes from basin-scale climate data.
@@ -492,19 +525,19 @@ This is likely due to daily differences in the timing of storms, the amount of w
 \begin{figure}
 \begin{tabular}{cc}
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf}
-\put (11,39.5) {\contour{white}{\large a.}}
+\put (12,39.5) {\contour{white}{\large a.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf}
-\put (11,39.5) {\contour{white}{\large b.}}
+\put (12,39.5) {\contour{white}{\large b.}}
 \end{overpic}
 \vspace{0.10cm} \\
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf}
-\put (11,39.5) {\contour{white}{\large c.}}
+\put (12,39.5) {\contour{white}{\large c.}}
 \end{overpic}
 &
 \begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
-\put (11,39.5) {\contour{white}{\large d.}}
+\put (12,39.5) {\contour{white}{\large d.}}
 \end{overpic}
 \end{tabular}
 \caption{Daily SWE timeseries averaged over the SRB during WY96 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
@@ -562,24 +595,44 @@ Further, since daily precipitation is evenly partitioned into sub-daily bins to 
 We argue this motivates the following interpretation.
 In L15, snowpack lost due to melt during the above-freezing temperatures during the 1996 event is, at least, partially offset by new snow on the ground that falls during the event due to below-freezing temperatures.
 These below-freezing periods and reduced relative humidity at the surface also mitigate any snowmelt in the land surface model that would be associated with enthalpy fluxes (either sensible or latent heat) into the existing snowpack.
-When combined, this explains the lack of a decline in L15 SWE and subsequent large spike in ROF in Fig. \ref{fig:yr-timeseries-comp}.
+When combined, this explains the lack of a decline in L15 SWE and subsequent lack of a spike in ROF in Fig. \ref{fig:yr-timeseries-comp}.
 All other datasets show a more prolonged period of above-freezing temperatures with high specific humidity during the window noted above, with nearly all precipitation during this period falling as rain versus snow.
 This induced varying degrees of snowmelt in E3SM, NLDAS, and JRA that are sufficient to trigger the RoS detection algorithm.
 
 \subsection{Generalizability to other basins}
 \label{subsec:other-basins}
 
-Finally, while we focus on the SRB in this manuscript, it may be beneficial to evaluate whether the algorithm can detect other well-known historical RoS events in the US and whether the dataset-to-dataset variability observed in the SRB occurs elsewhere. As a test of the transferability of the methodology described in Section \ref{subsec:algo}, we perform the same analysis using the RELATIVE framework over the Willamette River Basin (WRB) in Oregon and southern Washington and Sacremento River Basin (SacRB), covering parts of Northern California and Southern Oregon in the United States. A significant RoS flood event occured over the WRB in 1996 a few weeks following the SRB event discussed above. From February 5th-9th, 1996, the WRB expierienced its most severe flooding in three decades, with with parts of the river rising up to 10–20 feet above flood stage, causing eight fatalities, displacing over 30,000 residents, and causing nearly \$500 million in damages. Preceding the floods, subfreezing temperatures and substantial snowpack prevailed at relatively low elevations, but a succession of warmer synoptic systems brought liquid precipitation ranging from 10–25 cm in lowlands to 35–75 cm in mountainous regions over the four-day period. These conditions led to significant snowmelt, exacerbating the flooding \citep{halpert1997climate,colle2000february}. The 1997 New Year's flood event in California was the most financially devastating flood in the state's history with damages totaling \$1.6 billion, ranked as the second most severe superflood between 1950 and 2010 across the western United States \citep{tarouilly2021western}. Over half a million individuals were displaced, and 43 out of 58 California counties were declared disaster zones \citep{lott1997}. Preceding storms in late November and December contributed to elevated soil moisture and a substantial snowpack, setting the stage for extreme flooding exacerbated by heavy precipitation and an intense, warm, atmospheric river event on New Year's Day of 1997 \citep{galewsky2005moist,rhoades2023recreating}.
+Finally, while we focus on the SRB in this manuscript, it is beneficial to evaluate whether the algorithm can detect other well-known historical RoS events in the US and whether the dataset-to-dataset variability observed in the SRB occurs elsewhere.
+As a test of the transferability of the methodology described in Section \ref{subsec:algo}, we perform the same analysis using the RELATIVE framework over the Willamette River Basin (WRB) in Oregon and southern Washington and Sacramento River Basin (SacRB), covering parts of Northern California and Southern Oregon in the United States.
+A significant RoS flood event occurred over the WRB in 1996 a few weeks following the SRB event discussed above.
+From February 5th-9th, 1996, the WRB experienced its most severe flooding in three decades, with parts of the river rising up to 3-6 meters above flood stage, causing eight fatalities, displacing over 30,000 residents, and causing nearly \$500 USD million in damages.
+Preceding the floods, subfreezing temperatures and substantial snowpack prevailed at relatively low elevations, but a succession of warmer synoptic systems brought liquid precipitation ranging from 10-25 cm in lowlands to 35-75 cm in mountainous regions over the four-day period.
+These conditions led to significant snowmelt, exacerbating the flooding \citep{halpert1997climate,colle2000february}.
+The 1997 New Year's flood event in California was the most financially devastating flood in the state's history with damages totaling \$1.6 USD billion, ranked as the second most severe superflood between 1950 and 2010 across the western United States \citep{tarouilly2021western}.
+Over half a million individuals were displaced, and 43 out of 58 California counties were declared disaster zones \citep{lott1997}.
+Preceding storms in late November and December contributed to elevated soil moisture and a substantial snowpack, setting the stage for extreme flooding exacerbated by heavy precipitation and an intense, warm, atmospheric river event on New Year's Day of 1997 \citep{galewsky2005moist,rhoades2023recreating}.
 
 \begin{figure}
 \noindent\includegraphics[width=0.7\textwidth]{figs/cropped/other_basins_ROF.pdf}
-\caption{Basin shapefile domains for (a.) the Willamette River Basin (WRB) and (b.) the Sacremento River Basin (SacRB). Contoured is the surface runoff field from JRA on (a.) February 7th, 1996 and (b.) December 30th, 1996.}
+\caption{Basin shapefile domains for (a.) the Willamette River Basin (WRB) and (b.) the Sacramento River Basin (SacRB). Contoured is the surface runoff field from JRA on (a.) February 7th, 1996, and (b.) December 30th, 1996.}
 \label{fig:otherbasins}
 \end{figure}
 
-To proble these events, we first acquire shapefiles defining both the WRB and SacRB, shown in Fig. \ref{fig:otherbasins}. Like with the SRB analysis, all four datasets are masked using these basins. Daily, basin-averaged mean timeseries are constructed with the 95\% percentiles of ROF and dSWE being computed from these distributions to use as thresholds $t_{ROF}$ and $t_{dSWE}$. We then seek RoS events by looking for periods of concurrent PRECIP, ROF, and dSWE that all exceed relevant thresholds.
+To probe these events, we first acquire shapefiles defining both the WRB and SacRB, shown in Fig. \ref{fig:otherbasins}.
+Like with the SRB analysis, all four datasets are masked using these basins.
+Daily, basin-averaged mean timeseries are constructed with the 95\% percentiles of ROF and dSWE being computed from these distributions to use as thresholds $t_{\textrm{ROF}}$ and $t_{\textrm{dSWE}}$.
+We then seek RoS events by looking for periods of concurrent PRECIP, ROF, and dSWE that all exceed relevant thresholds.
 
-Fig. \ref{fig:ros-wrb} shows the WY96 results over the WRB. The flood event is clearly evident in the streamflow shading along the top of the panels on the right (black colors indicating 99.9\% streamflow). Three of the four products indicate a RoS event immediately preceding this streamflow maximum. All products indicate spikes in PRECIP and ROF over the basin, although E3SM produces less precipitation than the other three, likely owing to its coarser resolution. JRA has the largest and most rapid snowmelt, with both NLDAS and E3SM also showing reductions in SWE during the event. L15 shows a small rapid increase, then decrease in SWE during the event. This offset is strong enough that the RoS algorithm is not triggered ($t_{dSWE}$ is not satisified). While a more detailed evaluation of the meteorology as represented by the data products is beyond the scope of this study, it is possible that some of the mechanisms discussed in Section \ref{subsec:evaluationsingleevent}. The bubble plots on the right side of Fig. \ref{fig:ros-wrb} show a wide diversity as in Fig. \ref{fig:bubble-comp}, although the relative differences aren't the same, implying different processes are at play, particualrly for the ROF. As before, L15 has a narrower range of dSWE over the basin (i.e., spread on the horizontal axis) but does contain large values of both precipitation (vertical axis) and runoff (marker size). dSWE variability for both E3SM and JRA is larger but the products generally have lower ROF and PRECIP, respectively, than both L15 and NLDAS.
+Fig. \ref{fig:ros-wrb} shows the WY96 results over the WRB. The February flood event is clearly evident in the streamflow shading along the top of the panels on the right (black colors indicating 99.9\% streamflow).
+Three of the four products indicate a RoS event immediately preceding this streamflow maximum.
+All products indicate spikes in PRECIP and ROF over the basin, although E3SM produces less precipitation than the other three, likely owing to its coarser resolution.
+JRA has the largest and most rapid snowmelt, with both NLDAS and E3SM also showing reductions in SWE during the event.
+L15 shows a small rapid increase, then a decrease in SWE during the event.
+This offset is strong enough that the RoS algorithm is not triggered ($t_{\textrm{dSWE}}$ is not satisfied).
+While a more detailed evaluation of the meteorology as represented by the data products is beyond the scope of this study, it is possible that some of the mechanisms discussed in Section \ref{subsec:evaluationsingleevent} are also relevant in this basin.
+The bubble plots on the right side of Fig. \ref{fig:ros-wrb} show a wide diversity as in Fig. \ref{fig:bubble-comp}, although the relative differences are somewhat dissimilar, implying different processes are at play, particularly for the ROF.
+As before, L15 has a narrower range of dSWE over the basin (i.e., spread on the horizontal axis) but does contain large values of both precipitation (vertical axis) and runoff (marker size).
+The dSWE variability for both E3SM and JRA is larger but the products generally have lower ROF and PRECIP, respectively, than both L15 and NLDAS.
 
 \begin{figure}
 \centering
@@ -616,13 +669,22 @@ Fig. \ref{fig:ros-wrb} shows the WY96 results over the WRB. The flood event is c
 \begin{overpic}[width=\linewidth]{figs/cropped/E3SM_WillametteBasin_scatplot.pdf}
 \put (14,61.0) {\contour{white}{\large h.}}
 \end{overpic}
-
+\\
 \end{tabular}
-\caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Willamette River Basin (WRB) during WY96. The gauge percentiles along the top of the left panels is derived from daily streamflow from USGS gage \#14211720 (Willamette River at Portland, Oregon).}
+\caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Willamette River Basin (WRB) during WY96. The gage percentiles along the top of the left panels are derived from daily streamflow from USGS gage \#14211720 (Willamette River at Portland, Oregon).}
 \label{fig:ros-wrb}
 \end{figure}
 
-Figure \ref{fig:ros-sacrb} shows the WY97 results over the SacRB. Here, all four data products detect a RoS event in the basin in late December/early January. The timing differs slightly between the datasets, with E3SM (L15) triggering the earliest (latest). All products capture large spikes in PRECIP and subsuquent increases in ROF over the basin. They differ more significantly in terms of dSWE, with JRA (NLDAS) producing the most (least) snowmelt over the basin. Of note, both JRA and E3SM flag a smaller RoS event later in January while both L15 and NLDAS show increased SWE in the basin. All products show increases in ROF, however, which coincide with a secondary maximum in the streamflow, highlighting the complexity of how surface hydrology evolves in models even if the relevant metrics (e.g., runoff) are similar. The bubble plots on the right of Fig. \ref{fig:ros-sacrb} indicate similar behavior to Fig. \ref{fig:ros-wrb}, which is likely a function of processes in the SacRB being more similar to the WRB than the SRB.
+Figure \ref{fig:ros-sacrb} shows the WY97 results over the SacRB.
+Here, all four data products detect a RoS event in the basin in late December/early January.
+The timing differs slightly between the datasets, with E3SM (L15) triggering the earliest (latest).
+We speculate that this is a function of resolution, where the higher-resolution L15 contains more detailed small-scale processes (e.g., sub-basin melt at higher elevations, time for headwaters to reach the main stem).
+Evaluating temporal differences at the daily scale due to model structural characteristics is an interesting target for future work.
+All products capture large spikes in PRECIP and subsequent increases in ROF over the basin.
+They differ more significantly in terms of dSWE, with JRA (NLDAS) producing the most (least) snowmelt over the basin.
+Of note, both JRA and E3SM flag a smaller RoS event later in January while both L15 and NLDAS show increased SWE in the basin.
+All products show increases in ROF, however, which coincide with a secondary maximum in the streamflow, highlighting the complexity of how surface hydrology evolves in models even if the relevant metrics (e.g., runoff) are similar.
+The bubble plots on the right of Fig. \ref{fig:ros-sacrb} indicate similar behavior to Fig. \ref{fig:ros-wrb}, which is likely a function of snow processes in the SacRB being more similar to the WRB than the SRB.
 
 \begin{figure}
 \centering
@@ -658,21 +720,27 @@ Figure \ref{fig:ros-sacrb} shows the WY97 results over the SacRB. Here, all four
 \begin{overpic}[width=\linewidth]{figs/cropped/E3SM_SacRB_USGS1802_scatplot.pdf}
 \put (14,61.0) {\contour{white}{\large h.}}
 \end{overpic}
+\\
 \end{tabular}
-\caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Sacremento River Basin (SacRB) during WY97. The gauge percentiles along the top of the left panels is derived from daily streamflow from USGS gage \#14211720 (Sacramento River at Verona, California).}
+\caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Sacramento River Basin (SacRB) during WY97. The gauge percentiles along the top of the left panels is derived from daily streamflow from USGS gage \#14211720 (Sacramento River at Verona, California).}
 \label{fig:ros-sacrb}
 \end{figure}
 
-While this should only be considered a cursory investigation, it provides additional datapoints that the methodology can be applicable to other basins susceptible to RoS flooding. Of note, both the WRB and SacRB contain steeper and higher orography than the SRB, implying that the algorithm can credibly detect RoS events in different basin geometries. However, we emphasize a few caveats. More rigorous evaluation would be required by regional hydrologists to ensure results in other basins are hydrologically fit-for-purpose. Further, we also acknowledge that RoS over high mountain ridges can feed into rises in streamflow in different basins (e.g., the Sierra Nevada mountains in California contribute to multiple watersheds). Applying shapefiles containing larger hydrologic units or other spatial coverage may improve results in these regions and provide a better understanding of model variability and how land surface processes are represented in climate data.
+While this should only be considered a cursory investigation, it provides additional data points that the methodology can be applicable to other basins susceptible to RoS flooding.
+Of note, both the WRB and SacRB contain higher and steeper orography than the SRB, implying that the algorithm can credibly detect RoS events in different basin geometries.
+However, we stress a few caveats. More rigorous evaluation would be required by regional hydrologists to ensure results in other basins are hydrologically fit-for-purpose.
+Further, we also acknowledge that RoS over high mountain ridges can feed into rises in streamflow in different basins (e.g., the Sierra Nevada mountains in California contribute to multiple watersheds).
+Applying shapefiles containing larger hydrologic units or other spatial coverage may improve results in these regions and provide a better understanding of model variability and how land surface processes are represented in climate data.
 
 \conclusions
 
 We interrogate four different gridded climate data products that include PRECIP, ROF, and SWE in order to quantify differences in the representation of coupled land-atmosphere processes that lead to flooding events in the historical record.
 In particular, we focus on RoS floods over the SRB and devise an algorithm for the automatic detection of RoS events that can be applied to any gridded dataset with relevant variables.
+We include surface runoff as a criterion to incorporate information regarding the land surface model soil conditions before and during RoS events.
+We also spatially integrate at the basin scale versus the more commonly applied strategy of gridcell-by-gridcell analysis in climate data.
 
 A detection algorithm flagging for times of collocated ROF and dSWE is generally successful at marking periods that will be followed by above-normal streamflow as measured by a gage in the basin.
 We find using fixed thresholds for RoS-relevant variables applied uniformly across multiple gridded datasets leads to large discrepancies in event frequency over the historical period, up to a factor of 10.
-
 Normalizing these thresholds by each dataset's climatology (relative thresholds based on daily percentiles) improves agreement.
 However, there remains approximately a factor of two difference between event counts, implying that the underlying distributions are fundamentally different in both shape and magnitude across the data analyzed.
 
@@ -689,7 +757,7 @@ This is because the timing of synoptic variations in reference height surface ai
 Since RoS events in regions of ephemeral snow (e.g., SRB) can have rapid changes in surface forcing at hourly timescales (e.g., \citet{leathers1998severe}), temporally coarse data applied to force LSMs may result in an underprediction of RoS frequency.
 This may occur if time-interpolated data (and/or less frequent coupling) smooths and/or clips out short-term extrema and results in mismatched forcing or reduced day-to-day variability of multiple, co-dependent anomalies (e.g., temperature and precipitation extremes) required to accurately simulate historical, decision-relevant hydrometeorological extremes (e.g., 1996 SRB RoS event). We note that this effect can be independent of the model timestep itself. For example, the L15 data disaggregates precipitation data across sub-daily timesteps and uses a diurnal spline to reconstruct near-surface atmospheric conditions. While the LSM used is integrated at smaller timescales, the effective time resolution of the forcing data remains daily.
 
-We also show that even though a dataset is provided at much coarser spatial resolutions than is desired (e.g., JRA and E3SM), model-derived datasets that are more frequently coupled and/or constrained at shorter timescales (e.g., reanalysis products and nudged ESMs) may produce more accurate land-atmosphere interactions and better representation of decision-relevant hydrometeorological extremes, particularly at basin (and larger) spatial scales. However, these products will likely suffer in the spatial representation of hydrometeorology in regions of high heterogeneity.
+We also show that even though a dataset is provided at much coarser spatial resolutions than is desired (e.g., JRA and E3SM), model-derived datasets that are more frequently coupled and/or constrained at shorter timescales (e.g., reanalysis products and nudged ESMs) may produce more accurate land-atmosphere interactions and better representation of decision-relevant hydrometeorological extremes, particularly at basin (and larger) spatial scales. However, these products will likely suffer in the spatial representation of hydrometeorology in regions of high heterogeneity. The spatial resolution is also tightly linked to land surface flood processes within the basin. Higher resolution may better resolve headwater catchments and smaller geometries whereas coarser datasets may only be skillful at larger scales, even with more accurate forcing. Spatial scales are also connected to hydrologic timescales. Smaller areas respond to increased liquid input more quickly than larger, downstream sections of a basin. Understanding how coupling frequency affects hydrologic climate data, alongside spatial and temporal characteristics, is a complex challenge, but may offer insights into improving dataset credibility.
 
 We want to emphasize that this work doesn't aim to suggest a `superior' dataset writ large. For example, even though L15 does not capture the 1996 SRB flood as well as other products here, it has been an invaluable tool for studying climate extremes such as heat waves \citep{mazdiyasni2015substantial}, droughts \citep{pendergrass2020flash,williams2020large}, and wildfires \citep{williams2019observed} (amongst others) in the US.
 Rather, we offer a few suggestions about leveraging hydrometeorological data for application purposes.
@@ -890,7 +958,7 @@ L15 data was downloaded from the NOAA Administration Physical Science Laboratory
 %\disclaimer{TEXT} %% optional section
 
 \begin{acknowledgements}
-This work is supported by the U.S. Department of Energy (DOE), Office of Science, Office of Biological and Environmental Research program under Award DE-SC0016605 ``A framework for improving analysis and modeling of Earth system and intersectoral dynamics at regional scales.'' Data acquisition and E3SM simulations were completed at the National Energy Research Scientific Computing Center (NERSC), a U.S. Department of Energy Office of Science User Facility located at Lawrence Berkeley National Laboratory, operated under Contract No. DE-AC02-05CH11231 using NERSC award BER-ERCAP0020801. Event algorithm development, calibration, and analysis were performed on the Pennsylvania State University's Institute for Computational and Data Sciences' Roar supercomputer. The authors thank Dr. Andrew Jones for initial thoughts regarding the bubble plot diagnostics contained in this paper.
+This work is supported by the U.S. Department of Energy (DOE), Office of Science, Office of Biological and Environmental Research program under Award DE-SC0016605 ``A framework for improving analysis and modeling of Earth system and intersectoral dynamics at regional scales.'' Data acquisition and E3SM simulations were completed at the National Energy Research Scientific Computing Center (NERSC), a U.S. Department of Energy Office of Science User Facility located at Lawrence Berkeley National Laboratory, operated under Contract No. DE-AC02-05CH11231 using NERSC award BER-ERCAP0020801. Event algorithm development, calibration, and analysis were performed on the Pennsylvania State University's Institute for Computational and Data Sciences' Roar supercomputer. The authors thank Dr. Andrew Jones for initial thoughts regarding the bubble plot diagnostics contained in this paper. The authors also thank Dr. Keith Musselman and an anonymous reviewer for suggestions during the peer review process that improved this work.
 \end{acknowledgements}
 
 %% ------------------------------------------------------------------------ %%
