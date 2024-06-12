@@ -199,7 +199,7 @@ Gray shading represents contiguous days where all three criteria are satisfied, 
 
 \begin{figure}
 \noindent\includegraphics[width=0.65\textwidth]{figs/cropped/schematic.pdf}
-\caption{Schematic demonstrating how RoS events are defined in this work. (a.) Gridded daily-average data is first masked to only retain data within a defined shapefile (here the SRB) and then area-averaged to produce a single value on that day for the area. (b.) Exceedance thresholds $t$ are (optionally, in the RELATIVE framework) computed from these daily values by using a specified percentile (e.g., 95\%) of the distribution of the entire dataset. (c.) Finally, RoS events are defined as contiguous days where the basin-averaged time series of ROF, dSWE, and PRECIP all exceed their thresholds $t_{\textrm{ROF}}$, $t_{\textrm{dSWE}}$, and $t_{\textrm{PRECIP}}$, respectively. In the bottom plots, the darker lines represent the smoothed timeseries while the thinner lines denote the raw daily data. Shaded areas indicate periods when the given variable's time series is above its relevant threshold $t$ (denoted as a horizontal dashed line).}
+\caption{Schematic demonstrating how RoS events are defined in this work. (a.) Gridded daily-average data is first masked to only retain data within a defined shapefile (here the SRB) and then area-averaged to produce a single value on that day for the area. (b.) Exceedance thresholds $t$ can be computed from these daily values by using a specified percentile (e.g., 95\%) of the distribution of the entire dataset. (c.) Finally, RoS events are defined as contiguous days where the basin-averaged time series of ROF, dSWE, and PRECIP all exceed their thresholds $t_{\textrm{ROF}}$, $t_{\textrm{dSWE}}$, and $t_{\textrm{PRECIP}}$, respectively. In the bottom plots, the darker lines represent the smoothed timeseries while the thinner lines denote the raw daily data. Shaded areas indicate periods when the given variable's time series is above its relevant threshold $t$ (denoted as a horizontal dashed line).}
 \label{fig:schematic}
 \end{figure}
 
@@ -623,7 +623,7 @@ Like with the SRB analysis, all four datasets are masked using these basins.
 Daily, basin-averaged mean timeseries are constructed with the 95\% percentiles of ROF and dSWE being computed from these distributions to use as thresholds $t_{\textrm{ROF}}$ and $t_{\textrm{dSWE}}$.
 We then seek RoS events by looking for periods of concurrent PRECIP, ROF, and dSWE that all exceed relevant thresholds.
 
-Fig. \ref{fig:ros-wrb} shows the WY96 results over the WRB. The February flood event is clearly evident in the streamflow shading along the top of the panels on the right (black colors indicating 99.9\% streamflow).
+Fig. \ref{fig:ros-wrb} shows the WY96 results over the WRB. The February flood event is clearly evident in the streamflow shading along the top of the panels on the left (black colors indicating 99.9\% streamflow).
 Three of the four products indicate a RoS event immediately preceding this streamflow maximum.
 All products indicate spikes in PRECIP and ROF over the basin, although E3SM produces less precipitation than the other three, likely owing to its coarser resolution.
 JRA has the largest and most rapid snowmelt, with both NLDAS and E3SM also showing reductions in SWE during the event.
