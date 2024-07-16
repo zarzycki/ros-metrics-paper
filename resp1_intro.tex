@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{natbib}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{float} % Needed to force figure dump in specific location. Use [H] option.
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{titlesec}
+\usepackage[percent]{overpic}
+\usepackage{contour}
+\usepackage{array}
+
+\newcommand{\genDisc}[1]{\medskip \hrule \vspace{0.25cm}
+               {\itshape {\color{violet}{#1}\color{black}} }}
+               
+\newcommand{\pointRaised}[2]{\medskip \hrule \vspace{0.25cm}
+               {\itshape {\bfseries \color{violet}{#1}}: \color{violet}{#2}\color{black}}}
+               
+\newcommand{\pointRaisedNoRef}[1]{\medskip \hrule \vspace{0.25cm}
+               {\itshape {\color{violet}{#1}\color{black}} }}
+
+\newcommand{\reply}{\vspace{0.25cm} \textbf{Reply}:\ }
+
+\newcommand{\zeply}[1]{\vspace{0.25cm} \color{red}\textbf{Reply}:\ {#1}\color{black}}
+
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+
+\newcommand{\degree}{$^{\circ}$}
+
+\renewcommand{\thefigure}{R\arabic{figure}}
+\renewcommand{\thetable}{R\arabic{table}}   
+
+\begin{document}
+
+\title{Author Responses to Review of egusphere-2023-3094, `Algorithmically Detected Rain-on-Snow Flood Events in Different Climate Datasets: A Case Study of the Susquehanna River Basin'}
+\author{Colin M. Zarzycki, Benjamin D. Ascher, Alan M. Rhoades, and Rachel R. McCrary}
+
+\maketitle
+\pagenumbering{gobble}
+
+We greatly appreciate the detailed feedback provided by the reviewers and the editor's guidance throughout the revision process. Attached are our point-by-point responses. These changes have notably enhanced the quality and clarity of our work. Additionally, we have updated the Zenodo repository to include the modified code necessary to reproduce the results of this revision, ensuring full transparency and accessibility.
+
+\end{document}
