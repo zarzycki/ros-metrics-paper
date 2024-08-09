@@ -198,7 +198,7 @@ The vertical black lines denote the start and end of the event, defined by the f
 Gray shading represents contiguous days where all three criteria are satisfied, thus defining a RoS event. Here, an event from January 17th to January 25th, 1996 was added to the record.
 
 \begin{figure}
-\noindent\includegraphics[width=0.65\textwidth]{figs/cropped/schematic.pdf}
+\noindent\includegraphics[width=0.65\textwidth]{f01-schematic.pdf}
 \caption{Schematic demonstrating how RoS events are defined in this work. (a.) Gridded daily-average data is first masked to only retain data within a defined shapefile (here the SRB) and then area-averaged to produce a single value on that day for the area. (b.) Exceedance thresholds $t$ can be computed from these daily values by using a specified percentile (e.g., 95\%) of the distribution of the entire dataset. (c.) Finally, RoS events are defined as contiguous days where the basin-averaged time series of ROF, dSWE, and PRECIP all exceed their thresholds $t_{\textrm{ROF}}$, $t_{\textrm{dSWE}}$, and $t_{\textrm{PRECIP}}$, respectively. In the bottom plots, the darker lines represent the smoothed timeseries while the thinner lines denote the raw daily data. Shaded areas indicate periods when the given variable's time series is above its relevant threshold $t$ (denoted as a horizontal dashed line).}
 \label{fig:schematic}
 \end{figure}
@@ -298,15 +298,21 @@ However, we want to emphasize that the simulation of land surface processes in d
 A percentile-based threshold-only algorithm (such as RELATIVE) may particularly struggle in regions of climatologically low SWE and high PRECIP (which experiences primarily rain-induced flooding) or high SWE and low PRECIP (primarily melt-induced flooding).
 
 \begin{figure}
-\begin{tabular}{c}
-\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_PRECIP}.pdf} \\
-\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_ROF}.pdf} \\
-\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_SWE}.pdf} \\
-\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_dSWE}.pdf}
-\end{tabular}
+\includegraphics[width=0.98\linewidth]{{f02-climo_comp_panel}.pdf}
 \caption{November to April (inclusive) mean climatologies of L15, NLDAS, JRA, and E3SM (left to right). From top to bottom are precipitation (PRECIP; mm/day), surface runoff (ROF; mm/day), snow water equivalent (SWE; mm), and daily change in snow water equivalent (dSWE; mm/day). dSWE only includes days with snow loss at a particular grid cell. Data is only included if $>$50\% of a grid cell lies within the SRB bounds (black outline).}
 \label{fig:means}
 \end{figure}
+
+%\begin{figure}
+%\begin{tabular}{c}
+%\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_PRECIP}.pdf} \\
+%\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_ROF}.pdf} \\
+%\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_SWE}.pdf} \\
+%\includegraphics[width=0.98\linewidth]{{figs/cropped/climo_comp_panel_dSWE}.pdf}
+%\end{tabular}
+%\caption{November to April (inclusive) mean climatologies of L15, NLDAS, JRA, and E3SM (left to right). From top to bottom are precipitation (PRECIP; mm/day), surface runoff (ROF; mm/day), snow water equivalent (SWE; mm), and daily change in snow water equivalent (dSWE; mm/day). dSWE only includes days with snow loss at a particular grid cell. Data is only included if $>$50\% of a grid cell lies within the SRB bounds (black outline).}
+%\label{fig:means}
+%\end{figure}
 
 \begin{table}
 \caption{Statistics of RoS events over the SRB using FIXED thresholds (top) and RELATIVE thresholds (bottom). $t_{\textrm{PRECIP}}$, $t_{\textrm{ROF}}$, and $t_{\textrm{dSWE}}$ represent the thresholds used for precipitation, surface runoff, and snow water equivalent loss, respectively (mm/day). Events represent the number of RoS events flagged over the 1980-2005 period. Duration is the average number of consecutive days an RoS event lasts. PRECIP$_{a}$, ROF$_{a}$, and dSWE$_{a}$ represent the amount of precipitation rate, amount of runoff rate, and average snow loss (mm/day) per event by calculating the mean daily value for each individual event and then averaging those.}
@@ -351,126 +357,117 @@ While daily PRECIP in each product differs somewhat, it should be noted that the
 Rather, the majority of the differences in RoS events flagged arise from lower magnitudes of ROF and dSWE in L15 and dSWE in NLDAS.
 It is worth noting that L15 and NLDAS produce fewer RoS events regardless of which thresholding technique is used, so not only are the distributions of relevant daily variables shifted relative to the other models, but their skewness is impacted as well (Figs. \ref{fig:histograms2} and \ref{fig:histograms}).
 
+\begin{figure}
+\includegraphics[width=0.9\linewidth]{{f03-panels_AB}.pdf}
+\caption{Histogram statistics for RoS events within the FIXED detection framework. The number of RoS events for each product from 1985-2005 is shown in the top left. The other three panels show frequency distributions of the daily rate (mm/day) of maximum precipitation (PRECIP), maximum runoff (ROF), and maximum change in SWE (dSWE, snowmelt positive).}
+\label{fig:histograms2}
+\end{figure}
 %\begin{figure}
 %\begin{tabular}{cc}
-%\includegraphics[width=0.442\linewidth]{{figs/cropped/events_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_AB}.pdf} \\
-%\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_AB}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/events_AB}.pdf}
+%\put (11,72) {\contour{white}{\large a.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_AB}.pdf}
+%\put (11,72) {\contour{white}{\large b.}}
+%\end{overpic}
+%\vspace{0.10cm} \\
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_AB}.pdf}
+%\put (11,72) {\contour{white}{\large c.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
+%\put (11,72) {\contour{white}{\large d.}}
+%\end{overpic}
 %\end{tabular}
 %\caption{Histogram statistics for RoS events within the FIXED detection framework. The number of RoS events for each product from 1985-2005 is shown in the top left. The other three panels show frequency distributions of the daily rate (mm/day) of maximum precipitation (PRECIP), maximum runoff (ROF), and maximum change in SWE (dSWE, snowmelt positive).}
 %\label{fig:histograms2}
 %\end{figure}
 
 \begin{figure}
-\begin{tabular}{cc}
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/events_AB}.pdf}
-\put (11,72) {\contour{white}{\large a.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_AB}.pdf}
-\put (11,72) {\contour{white}{\large b.}}
-\end{overpic}
-\vspace{0.10cm} \\
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_AB}.pdf}
-\put (11,72) {\contour{white}{\large c.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_dSWE_AB}.pdf}
-\put (11,72) {\contour{white}{\large d.}}
-\end{overpic}
-\end{tabular}
-\caption{Histogram statistics for RoS events within the FIXED detection framework. The number of RoS events for each product from 1985-2005 is shown in the top left. The other three panels show frequency distributions of the daily rate (mm/day) of maximum precipitation (PRECIP), maximum runoff (ROF), and maximum change in SWE (dSWE, snowmelt positive).}
-\label{fig:histograms2}
+\includegraphics[width=0.9\linewidth]{{f04-panels_95}.pdf}
+\caption{Same as Fig. \ref{fig:histograms2} except for the RELATIVE detection thresholds.}
+\label{fig:histograms}
 \end{figure}
-
 %\begin{figure}
 %\begin{tabular}{cc}
-%\includegraphics[width=0.442\linewidth]{{figs/cropped/events_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_precip_95}.pdf} \\
-%\includegraphics[width=0.451\linewidth]{{figs/cropped/Max_runoff_95}.pdf} & \includegraphics[width=0.451\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/events_95}.pdf}
+%\put (11,72) {\contour{white}{\large a.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_95}.pdf}
+%\put (11,72) {\contour{white}{\large b.}}
+%\end{overpic}
+%\vspace{0.10cm} \\
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_95}.pdf}
+%\put (11,72) {\contour{white}{\large c.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
+%\put (11,72) {\contour{white}{\large d.}}
+%\end{overpic}
 %\end{tabular}
 %\caption{Same as Fig. \ref{fig:histograms2} except for the RELATIVE detection thresholds.}
 %\label{fig:histograms}
 %\end{figure}
-
-\begin{figure}
-\begin{tabular}{cc}
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/events_95}.pdf}
-\put (11,72) {\contour{white}{\large a.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_precip_95}.pdf}
-\put (11,72) {\contour{white}{\large b.}}
-\end{overpic}
-\vspace{0.10cm} \\
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_runoff_95}.pdf}
-\put (11,72) {\contour{white}{\large c.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/Max_dSWE_95}.pdf}
-\put (11,72) {\contour{white}{\large d.}}
-\end{overpic}
-\end{tabular}
-\caption{Same as Fig. \ref{fig:histograms2} except for the RELATIVE detection thresholds.}
-\label{fig:histograms}
-\end{figure}
 
 
 \subsection{Single-year evaluation}
 \label{subsec:singleyeareval}
 
 \begin{figure}
-\begin{tabular}{cc}
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf}
-\put (10.5,40) {\contour{white}{\large a.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf}
-\put (10.5,40) {\contour{white}{\large b.}}
-\end{overpic}
-\vspace{0.10cm} \\
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf}
-\put (10.5,40) {\contour{white}{\large c.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
-\put (10.5,40) {\contour{white}{\large d.}}
-\end{overpic}
-\end{tabular}
+\includegraphics[width=0.9\linewidth]{{f05-panels_1995_events}.pdf}
 \caption{Time series of daily precipitation (PRECIP; green), surface runoff (ROF; orange), and SWE loss (dSWE; pink) during WY96 for each of the four products. Vertical purple shading denotes periods flagged as an RoS event. At the top of each time series are colored bars that denote extreme values (greater than the 90\% percentile) of observed USGS streamflow at Harrisburg, Pennsylvania (\#01570500), with black representing 99.9th percentile values over the 1980-2005 period.}
 \label{fig:yr-timeseries-comp}
 \end{figure}
+%\begin{figure}
+%\begin{tabular}{cc}
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_events}.pdf}
+%\put (10.5,40) {\contour{white}{\large a.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf}
+%\put (10.5,40) {\contour{white}{\large b.}}
+%\end{overpic}
+%\vspace{0.10cm} \\
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_events}.pdf}
+%\put (10.5,40) {\contour{white}{\large c.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_events}.pdf}
+%\put (10.5,40) {\contour{white}{\large d.}}
+%\end{overpic}
+%\end{tabular}
+%\caption{Time series of daily precipitation (PRECIP; green), surface runoff (ROF; orange), and SWE loss (dSWE; pink) during WY96 for each of the four products. Vertical purple shading denotes periods flagged as an RoS event. At the top of each time series are colored bars that denote extreme values (greater than the 90\% percentile) of observed USGS streamflow at Harrisburg, Pennsylvania (\#01570500), with black representing 99.9th percentile values over the 1980-2005 period.}
+%\label{fig:yr-timeseries-comp}
+%\end{figure}
 
 \begin{figure}
-\begin{tabular}{cc}
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf}
-\put (13,63) {\contour{white}{\Large a.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf}
-\put (13,63) {\contour{white}{\Large b.}}
-\end{overpic}
-\vspace{0.10cm} \\
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf}
-\put (13,63) {\contour{white}{\Large c.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
-\put (13,63) {\contour{white}{\Large d.}}
-\end{overpic}
-
-\end{tabular}
+\includegraphics[width=0.9\linewidth]{{f06-panels_1995_scatplot}.pdf}
 \caption{Bubble plots comparing precipitation (PRECIP; y-axis), SWE change (dSWE; x-axis), and surface runoff (size of bubble) for each of the four datasets during WY96. For each bubble, the values come from the same calendar day. Filled bubbles were flagged by the algorithm as an RoS event (purple shaded periods in Fig. \ref{fig:yr-timeseries-comp}).}
 \label{fig:bubble-comp}
 \end{figure}
-
-% \begin{figure}
-% \centering
-% \begin{tabularx}{\textwidth}{XX}
-% \includegraphics[width=1.0\linewidth]{{figs/cropped/L15_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf} \\ \includegraphics[width=1.0\linewidth]{{figs/cropped/NLDAS_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf} \\
-%     \includegraphics[width=1.0\linewidth]{{figs/cropped/JRA_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf} \\\includegraphics[width=1.0\linewidth]{{figs/cropped/E3SM_1995_events}.pdf} & \includegraphics[width=0.75\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
-% \end{tabularx}
-% \caption{(left) Time series of daily precipitation (PRECIP; green), surface runoff (ROF; orange), and change in SWE (dSWE; pink) during WY96 for each dataset. Vertical purple shading denotes periods flagged as a rain-on-snow (RoS) event using frameworks discussed in the Methods. Along the top x-axis of each time series is a colored bar series that denotes extreme values (greater than 75\%) of observed USGS streamflow at Harrisburg, PA with the darkest hues representing 99\% values over the 1980-2005 period. (right) Bubble plots comparing daily PRECIP (y-axis), dSWE (x-axis), and ROF (size of bubble) during WY96. Bubbles that are filled were days flagged by the RoS algorithm as occurring during an RoS event.}
-% \label{fig:merged-wy}
-% \end{figure}
+%\begin{figure}
+%\begin{tabular}{cc}
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf}
+%\put (13,63) {\contour{white}{\Large a.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf}
+%\put (13,63) {\contour{white}{\Large b.}}
+%\end{overpic}
+%\vspace{0.10cm} \\
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf}
+%\put (13,63) {\contour{white}{\Large c.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
+%\put (13,63) {\contour{white}{\Large d.}}
+%\end{overpic}
+%\end{tabular}
+%\caption{Bubble plots comparing precipitation (PRECIP; y-axis), SWE change (dSWE; x-axis), and surface runoff (size of bubble) for each of the four datasets during WY96. For each bubble, the values come from the same calendar day. Filled bubbles were flagged by the algorithm as an RoS event (purple shaded periods in Fig. \ref{fig:yr-timeseries-comp}).}
+%\label{fig:bubble-comp}
+%\end{figure}
 
 To further explore RoS events at a more granular level we focus on results associated with the 1996 water year (WY96, October 1995 to September 1996).
 We chose this WY since this includes the January 1996 SRB flood that is often used for disaster planning purposes in the region \citep{army2001non}.
@@ -506,52 +503,33 @@ This is likely due to daily differences in the timing of storms, the amount of w
 \subsection{Evaluation of a single event}
 \label{subsec:evaluationsingleevent}
 
-%\begin{figure}
-%\noindent\includegraphics[width=0.95\textwidth]{figs/cropped/merged_SWE_1995.png}
-%\caption{Daily SWE timeseries averaged over the SRB during WY96 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
-%\label{fig:allswewy95}
-%\end{figure}
-
+\begin{figure}
+\includegraphics[width=0.9\linewidth]{{f07-panels_1995_SWE}.pdf}
+\caption{Daily SWE timeseries averaged over the SRB during WY96 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
+\label{fig:allswewy95}
+\end{figure}
+%%% \put HORIZ, VERT from bottom left
 %\begin{figure}
 %\begin{tabular}{cc}
-%\includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf} \\
-%\includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf}
+%\put (12,39.5) {\contour{white}{\large a.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf}
+%\put (12,39.5) {\contour{white}{\large b.}}
+%\end{overpic}
+%\vspace{0.10cm} \\
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf}
+%\put (12,39.5) {\contour{white}{\large c.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
+%\put (12,39.5) {\contour{white}{\large d.}}
+%\end{overpic}
 %\end{tabular}
 %\caption{Daily SWE timeseries averaged over the SRB during WY96 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
 %\label{fig:allswewy95}
 %\end{figure}
-
-%%% \put HORIZ, VERT from bottom left
-\begin{figure}
-\begin{tabular}{cc}
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/L15_1995_SWE}.pdf}
-\put (12,39.5) {\contour{white}{\large a.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_SWE}.pdf}
-\put (12,39.5) {\contour{white}{\large b.}}
-\end{overpic}
-\vspace{0.10cm} \\
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/JRA_1995_SWE}.pdf}
-\put (12,39.5) {\contour{white}{\large c.}}
-\end{overpic}
-&
-\begin{overpic}[width=0.45\linewidth]{{figs/cropped/E3SM_1995_SWE}.pdf}
-\put (12,39.5) {\contour{white}{\large d.}}
-\end{overpic}
-\end{tabular}
-\caption{Daily SWE timeseries averaged over the SRB during WY96 for all four data products. Shaded in blue are the same events from Fig. \ref{fig:yr-timeseries-comp}.}
-\label{fig:allswewy95}
-\end{figure}
-
-% \begin{figure}
-% \begin{tabular}{cc}
-% \includegraphics[width=0.45\linewidth]{{figs/cropped/L15_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/NLDAS_1995_scatplot}.pdf} \\
-% \includegraphics[width=0.45\linewidth]{{figs/cropped/JRA_1995_scatplot}.pdf} & \includegraphics[width=0.45\linewidth]{{figs/cropped/E3SM_1995_scatplot}.pdf}
-% \end{tabular}
-% \caption{....}
-% \label{fig:allswewy95}
-% \end{figure}
 
 One notable question given the above analysis (Fig. \ref{fig:yr-timeseries-comp}) is why the January 1996 event is captured differently across the products, particularly `why is it `unseen' by the L15 dataset?'
 Fig. \ref{fig:allswewy95} shows the SRB evolution of total on-surface SWE over WY96 for all datasets.
@@ -563,9 +541,8 @@ Also included is the temperature trace observed at Harrisburg (thin gold line) a
 
 %https://journals.ametsoc.org/view/journals/clim/26/23/jcli-d-12-00508.1.xml
 %http://livnehpublicstorage.colorado.edu:81/Livneh.2013.CONUS.Dataset/
-
 \begin{figure}
-\begin{overpic}[width=0.8\textwidth]{figs/cropped/precip_vs_t.pdf}
+\begin{overpic}[width=0.8\textwidth]{f08-precip_vs_t.pdf}
 \put (7,65) {\contour{white}{\Large a.}}
 \put (48.5,65) {\contour{white}{\Large b.}}
 \put (7,34.25) {\contour{white}{\Large c.}}
@@ -613,7 +590,7 @@ Over half a million individuals were displaced, and 43 out of 58 California coun
 Preceding storms in late November and December contributed to elevated soil moisture and a substantial snowpack, setting the stage for extreme flooding exacerbated by heavy precipitation and an intense, warm, atmospheric river event on New Year's Day of 1997 \citep{galewsky2005moist,rhoades2023recreating}.
 
 \begin{figure}
-\noindent\includegraphics[width=0.7\textwidth]{figs/cropped/other_basins_ROF.pdf}
+\noindent\includegraphics[width=0.7\textwidth]{f09-other_basins_ROF.pdf}
 \caption{Basin shapefile domains for (a.) the Willamette River Basin (WRB) and (b.) the Sacramento River Basin (SacRB). Contoured is the surface runoff field from JRA on (a.) February 7th, 1996, and (b.) December 30th, 1996.}
 \label{fig:otherbasins}
 \end{figure}
@@ -635,45 +612,49 @@ As before, L15 has a narrower range of dSWE over the basin (i.e., spread on the 
 The dSWE variability for both E3SM and JRA is larger but the products generally have lower ROF and PRECIP, respectively, than both L15 and NLDAS.
 
 \begin{figure}
-\centering
-\begin{tabular}{@{}m{0.45\textwidth}@{\hspace{1.5em}}m{0.3\textwidth}@{}}
-
-\begin{overpic}[width=\linewidth]{figs/cropped/L15_WillametteBasin_events.pdf}
-\put (11,39.5) {\contour{white}{\large a.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/L15_WillametteBasin_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large b.}}
-\end{overpic}
-\\
-\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_WillametteBasin_events.pdf}
-\put (11,39.5) {\contour{white}{\large c.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_WillametteBasin_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large d.}}
-\end{overpic}
-\\
-\begin{overpic}[width=\linewidth]{figs/cropped/JRA_WillametteBasin_events.pdf}
-\put (11,39.5) {\contour{white}{\large e.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/JRA_WillametteBasin_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large f.}}
-\end{overpic}
-\\
-\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_WillametteBasin_events.pdf}
-\put (11,39.5) {\contour{white}{\large g.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_WillametteBasin_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large h.}}
-\end{overpic}
-\\
-\end{tabular}
+\includegraphics[width=0.8\linewidth]{{f10-WillametteBasin}.pdf}
 \caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Willamette River Basin (WRB) during WY96. The striped gauge percentiles along the top of the left panels are derived from daily streamflow from USGS gage \#14211720 (Willamette River at Portland, Oregon).}
 \label{fig:ros-wrb}
 \end{figure}
+%\begin{figure}
+%\centering
+%\begin{tabular}{@{}m{0.45\textwidth}@{\hspace{1.5em}}m{0.3\textwidth}@{}}
+%\begin{overpic}[width=\linewidth]{figs/cropped/L15_WillametteBasin_events.pdf}
+%\put (11,39.5) {\contour{white}{\large a.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/L15_WillametteBasin_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large b.}}
+%\end{overpic}
+%\\
+%\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_WillametteBasin_events.pdf}
+%\put (11,39.5) {\contour{white}{\large c.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_WillametteBasin_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large d.}}
+%\end{overpic}
+%\\
+%\begin{overpic}[width=\linewidth]{figs/cropped/JRA_WillametteBasin_events.pdf}
+%\put (11,39.5) {\contour{white}{\large e.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/JRA_WillametteBasin_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large f.}}
+%\end{overpic}
+%\\
+%\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_WillametteBasin_events.pdf}
+%\put (11,39.5) {\contour{white}{\large g.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_WillametteBasin_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large h.}}
+%\end{overpic}
+%\\
+%\end{tabular}
+%\caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Willamette River Basin (WRB) during WY96. The striped gauge percentiles along the top of the left panels are derived from daily streamflow from USGS gage \#14211720 (Willamette River at Portland, Oregon).}
+%\label{fig:ros-wrb}
+%\end{figure}
 
 Figure \ref{fig:ros-sacrb} shows the WY97 results over the SacRB.
 Here, all four data products detect a RoS event in the basin in late December/early January.
@@ -687,44 +668,49 @@ All products show increases in ROF, however, which coincide with a secondary max
 The bubble plots on the right of Fig. \ref{fig:ros-sacrb} indicate similar behavior to Fig. \ref{fig:ros-wrb}, which is likely a function of snow processes in the SacRB being more similar to the WRB than the SRB.
 
 \begin{figure}
-\centering
-\begin{tabular}{@{}m{0.45\textwidth}@{\hspace{1.5em}}m{0.3\textwidth}@{}}
-\begin{overpic}[width=\linewidth]{figs/cropped/L15_SacRB_USGS1802_events.pdf}
-\put (11,39.5) {\contour{white}{\large a.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/L15_SacRB_USGS1802_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large b.}}
-\end{overpic}
-\\
-\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_SacRB_USGS1802_events.pdf}
-\put (11,39.5) {\contour{white}{\large c.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_SacRB_USGS1802_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large d.}}
-\end{overpic}
-\\
-\begin{overpic}[width=\linewidth]{figs/cropped/JRA_SacRB_USGS1802_events.pdf}
-\put (11,39.5) {\contour{white}{\large e.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/JRA_SacRB_USGS1802_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large f.}}
-\end{overpic}
-\\
-\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_SacRB_USGS1802_events.pdf}
-\put (11,39.5) {\contour{white}{\large g.}}
-\end{overpic}
-&
-\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_SacRB_USGS1802_scatplot.pdf}
-\put (14,61.0) {\contour{white}{\large h.}}
-\end{overpic}
-\\
-\end{tabular}
+\includegraphics[width=0.8\linewidth]{{f11-SacRB_USGS1802}.pdf}
 \caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Sacramento River Basin (SacRB) during WY97. The striped gauge percentiles along the top of the left panels are derived from daily streamflow from USGS gage \#14211720 (Sacramento River at Verona, California).}
 \label{fig:ros-sacrb}
 \end{figure}
+%\begin{figure}
+%\centering
+%\begin{tabular}{@{}m{0.45\textwidth}@{\hspace{1.5em}}m{0.3\textwidth}@{}}
+%\begin{overpic}[width=\linewidth]{figs/cropped/L15_SacRB_USGS1802_events.pdf}
+%\put (11,39.5) {\contour{white}{\large a.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/L15_SacRB_USGS1802_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large b.}}
+%\end{overpic}
+%\\
+%\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_SacRB_USGS1802_events.pdf}
+%\put (11,39.5) {\contour{white}{\large c.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/NLDAS_SacRB_USGS1802_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large d.}}
+%\end{overpic}
+%\\
+%\begin{overpic}[width=\linewidth]{figs/cropped/JRA_SacRB_USGS1802_events.pdf}
+%\put (11,39.5) {\contour{white}{\large e.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/JRA_SacRB_USGS1802_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large f.}}
+%\end{overpic}
+%\\
+%\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_SacRB_USGS1802_events.pdf}
+%\put (11,39.5) {\contour{white}{\large g.}}
+%\end{overpic}
+%&
+%\begin{overpic}[width=\linewidth]{figs/cropped/E3SM_SacRB_USGS1802_scatplot.pdf}
+%\put (14,61.0) {\contour{white}{\large h.}}
+%\end{overpic}
+%\\
+%\end{tabular}
+%\caption{As in Figs. \ref{fig:yr-timeseries-comp} (a., c., e., g.) and \ref{fig:bubble-comp} (b., d., f., h.), except for the Sacramento River Basin (SacRB) during WY97. The striped gauge percentiles along the top of the left panels are derived from daily streamflow from USGS gage \#14211720 (Sacramento River at Verona, California).}
+%\label{fig:ros-sacrb}
+%\end{figure}
 
 While this should only be considered a cursory investigation, it provides additional data points that the methodology can be applicable to other basins susceptible to RoS flooding.
 Of note, both the WRB and SacRB contain higher and steeper orography than the SRB, implying that the algorithm can credibly detect RoS events in different basin geometries.
@@ -743,12 +729,6 @@ A detection algorithm flagging for times of collocated ROF and dSWE is generally
 We find using fixed thresholds for RoS-relevant variables applied uniformly across multiple gridded datasets leads to large discrepancies in event frequency over the historical period, up to a factor of 10.
 Normalizing these thresholds by each dataset's climatology (relative thresholds based on daily percentiles) improves agreement.
 However, there remains approximately a factor of two difference between event counts, implying that the underlying distributions are fundamentally different in both shape and magnitude across the data analyzed.
-
-% Notably, although we refer to automated algorithm-flagged events as RoS events, there is no explicit PRECIP threshold.
-% With that said, we find that 75\% of automated algorithm-flagged events have at least one day of $>5$ mm/day of basin-averaged precipitation and 95\% have at least one day of measurable precipitation ($>$1 mm/day).
-% This implies that while ablation-only snowmelt events can lead to flooding, the vast majority of events producing large flood signals involve some form of precipitation as well.
-
-%A common misconception is that RoS events are generated by warm rain transferring heat to the snowpack which then ripens or ablates it.
 
 This underscores the complex assessment of such flood events -- even products representing the historical record contain a large spread in hydrometeorological quantities provided to end users. The spatiotemporal dependencies of how meteorological data is generated for land surface and/or hydrological model forcing are critically important.
 While spatial resolution of data is important, particularly for snow processes in complex terrain \citep{henn2018an,Woodburn2021}, we show that the time resolution of data used to derive surface water conditions is just as critical for transient extremes, such as RoS events.
